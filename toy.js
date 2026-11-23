@@ -1,4 +1,4 @@
-// Dumb Terminal's site, part 2: the [ trackpad ] toy in the hero and two small ambient touches. Decoration only:
+// Dumb Terminal's site, part 2: the [ trackpad ] toy (under man dumbterminal) and two small ambient touches. Decoration only:
 // hidden from screen readers, and the ambient bits stay still with Reduce Motion.
 (function () {
   'use strict';

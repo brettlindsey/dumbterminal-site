@@ -32,6 +32,14 @@
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var stamp = days[now.getDay()] + ' ' + months[now.getMonth()] + ' ' + now.getDate() + ' ' +
       DT.pad(now.getHours()) + ':' + DT.pad(now.getMinutes());
+    // On a phone, three lines, so the headline and the app's screenshots stay in the first screen.
+    if (window.matchMedia('(max-width: 600px)').matches) {
+      return [
+        [DT.prompt() + ' ls ~/macs', 'hi'],
+        ['studio      home   ready', ''],
+        [DT.prompt() + ' echo "$(cat pitch.txt)"', 'hi']
+      ];
+    }
     return [
       ['Last login: ' + stamp + ' on ttys-web', ''],
       [DT.prompt() + ' ls ~/macs', 'hi'],
@@ -124,12 +132,20 @@
   }
 
   // ---- The support address is never in the HTML, so address harvesters reading the page find nothing to take.
-  // It is put together here; without JavaScript the link reads "support [at] dumbterminal [dot] app". ----
+  // It is put together here; without JavaScript the link reads "support [at] dumbterminal [dot] app". A link whose
+  // label is a button's words (./ask-for-an-invite) keeps them. ----
   document.querySelectorAll('[data-mail]').forEach(function (a) {
     var address = a.getAttribute('data-mail') + String.fromCharCode(64) + ['dumbterminal', 'app'].join('.');
     var subject = a.getAttribute('data-subject');
     a.href = 'mailto:' + address + (subject ? '?subject=' + encodeURIComponent(subject) : '');
-    a.textContent = address;
+    if (/\[at\]/.test(a.textContent)) a.textContent = address;
+  });
+
+  // ---- The 404 page names the address that wasn't found. ----
+  document.querySelectorAll('[data-missing]').forEach(function (el) {
+    var path = location.pathname;
+    try { path = decodeURIComponent(path); } catch (e) { /* keep it encoded */ }
+    el.textContent = path.replace(/^\//, '') || 'this page';
   });
 
   // ---- The Prompt Clock: the visitor's time, how long the tab has been open, a blinking cursor. ----
@@ -147,22 +163,7 @@
   tickClock();
   setInterval(tickClock, 15000);
 
-  // ---- The pointer: a different odd character on every visit (Terminal theme, with a mouse or trackpad). ----
-  var pointerGlyphs = ['§', '¶', 'Ж', 'Ψ', 'Ω', '∆', '∑', '∞', '≈', '⌘', '⌥', '⎋', '⏚', '☊', '♆', '⚚', '✣', '✺', '❖', '⟁',
-    '⧖', 'ʘ', 'ϟ', 'Ѣ', '₪', '¤', '‡', '†', '※', '⁂', '⌬', '⏣', '⍟', '⎈', '☈', 'Ѫ', 'ᚠ', 'ᛟ', 'λ', 'µ', 'Þ', 'ƒ', '∂', '∫', '√', '◊', '⌖'];
-  var sheet = Array.prototype.filter.call(document.styleSheets, function (x) { return /style\.css/.test(x.href || ''); })[0];
-  if (sheet && window.matchMedia('(pointer: fine)').matches) {
-    var glyph = pointerGlyphs[Math.floor(Math.random() * pointerGlyphs.length)];
-    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text x='16' y='24' " +
-      "text-anchor='middle' font-family='Menlo, monospace' font-size='24' font-weight='700' fill='#7CFF9B' stroke='#0A0F0A' " +
-      "stroke-width='3' paint-order='stroke'>" + glyph + '</text></svg>';
-    try {
-      sheet.insertRule('html:not([data-theme]) { --cursor: url("data:image/svg+xml,' + encodeURIComponent(svg) + '") 16 16, auto; }',
-        sheet.cssRules.length);
-    } catch (e) { /* keeps the arrow */ }
-  }
-
-  // ---- Every 19 to 79 seconds, a bright line sweeps down the screen, like a tube refreshing. ----
+  // ---- Now and then (every 1 to 3 minutes), a bright line sweeps down the screen, like a tube refreshing. ----
   if (!DT.still()) {
     var sweep = function () {
       if (!document.hidden && !DT.still()) {
@@ -172,8 +173,8 @@
         line.addEventListener('animationend', function () { line.remove(); });
         document.body.appendChild(line);
       }
-      setTimeout(sweep, (19 + Math.random() * 60) * 1000);
+      setTimeout(sweep, (60 + Math.random() * 120) * 1000);
     };
-    setTimeout(sweep, (19 + Math.random() * 60) * 1000);
+    setTimeout(sweep, (60 + Math.random() * 120) * 1000);
   }
 })();

@@ -245,6 +245,26 @@
   reg(['history'], function () { say(history.map(function (h, i) { return (i + 1) + '  ' + h; }).join('\n')); });
   reg(['uname'], function () { say('DumbTerminal ttys-web 1.0 (no kernel, just vibes)'); });
 
+  // cursor: an odd character as the Terminal theme's pointer until the page is left (with a mouse or trackpad).
+  var glyphs = ['§', '¶', 'Ж', 'Ψ', 'Ω', '∆', '∑', '∞', '≈', '⌘', '⌥', '⎋', '⏚', '☊', '♆', '⚚', '✣', '✺', '❖', '⟁',
+    '⧖', 'ʘ', 'ϟ', 'Ѣ', '₪', '¤', '‡', '†', '※', '⁂', '⌬', '⏣', '⍟', '⎈', '☈', 'Ѫ', 'ᚠ', 'ᛟ', 'λ', 'µ', 'Þ', 'ƒ', '∂', '∫', '√', '◊', '⌖'];
+  reg(['cursor', 'pointer'], function () {
+    if (!window.matchMedia('(pointer: fine)').matches) { say('cursor: no pointer here. try it with a mouse.'); return; }
+    if (document.documentElement.hasAttribute('data-theme')) { say('cursor: this theme brings its own. back on terminal, try again.'); return; }
+    var sheet = Array.prototype.filter.call(document.styleSheets, function (x) { return /style\.css/.test(x.href || ''); })[0];
+    if (!sheet) { say('cursor: not today.'); return; }
+    var glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text x='16' y='24' " +
+      "text-anchor='middle' font-family='Menlo, monospace' font-size='24' font-weight='700' fill='#7CFF9B' stroke='#0A0F0A' " +
+      "stroke-width='3' paint-order='stroke'>" + glyph + '</text></svg>';
+    // Scoped to the Terminal theme, so switching themes brings back each theme's own pointer.
+    try {
+      sheet.insertRule('html:not([data-theme]) { --cursor: url("data:image/svg+xml,' + encodeURIComponent(svg) + '") 16 16, auto; }',
+        sheet.cssRules.length);
+    } catch (e) { say('cursor: not today.'); return; }
+    say('cursor: ' + glyph + ' until you leave. run it again for another.');
+  });
+
   // sudo: plain sudo (or su) makes you root; anything else gets the old joke.
   reg(['sudo', 'su'], function (cmd) {
     if (cmd.indexOf('make') > -1 && cmd.indexOf('coffee') > -1) { say("make: *** No rule to make target 'coffee'."); return; }

@@ -23,6 +23,8 @@
 }
 
 * { box-sizing: border-box; }
+/* `hidden` always wins, even over a class that sets display (a hidden .button once showed on the live site). */
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0; min-height: 100vh; overflow-x: hidden;
@@ -31,7 +33,9 @@ body {
   font: 16px/1.65 var(--body);
 }
 @media (pointer: fine) {
-  body, a, button, summary, label { cursor: var(--cursor); }
+  body { cursor: var(--cursor); }
+  /* Things you can click keep the hand, in every theme, so they read as clickable. */
+  a, button, summary, label { cursor: pointer; }
   input, textarea { cursor: text; }
 }
 /* Faint scanlines over everything, like an old tube. */
@@ -88,9 +92,25 @@ img { max-width: 100%; display: block; }
   .nav-wide { display: flex; }
 }
 
-/* Hero */
-.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: center; padding-top: 2.5rem; padding-bottom: 3rem; }
-@media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 1rem; } }
+/* Hero: the words, then the app on an iPad and an iPhone. On a phone the devices sit between the headline and the
+   paragraph, so the first screen shows the app. */
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-areas: "copy devices" "more devices";
+        grid-template-rows: auto 1fr; column-gap: 2.5rem; align-items: end; padding-top: 2.5rem; padding-bottom: 3rem; }
+.hero-copy { grid-area: copy; }
+.hero-more { grid-area: more; align-self: start; position: relative; z-index: 1; } /* above the devices' shadow */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; grid-template-areas: "copy" "devices" "more"; grid-template-rows: none; padding-top: 1rem; }
+}
+.devices { grid-area: devices; align-self: center; position: relative; margin: 0 auto; width: min(100%, 22rem);
+           padding: 0 0 1.5rem 2.5rem; }
+@media (max-width: 860px) { .devices { width: min(100%, 19rem); margin: 0.8rem auto 1.4rem; padding: 0 0 1.2rem 2rem; } }
+.device { margin: 0; background: #000; border: 3px solid var(--line); overflow: hidden;
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 36px color-mix(in srgb, var(--text) 14%, transparent); }
+.device img { display: block; width: 100%; height: auto; }
+.device.ipad { border-radius: 20px; }
+.device.iphone { position: absolute; left: 0; bottom: 0; width: 38%; border-radius: 22px; }
+/* The open iPhone Duo, when its screenshot exists: front right, opposite the iPhone. */
+.device.duo { position: absolute; right: -6%; bottom: 0; width: 46%; border-radius: 16px; }
 .boot { margin: 0 0 1rem; min-height: 0; color: var(--dim); font-size: 0.85rem; line-height: 1.55; white-space: pre-wrap; }
 .boot:empty { display: none; }
 .boot .hi { color: var(--text); }
@@ -108,7 +128,9 @@ img { max-width: 100%; display: block; }
 .store img { height: 50px; width: auto; margin-bottom: 0.6rem; }
 .note { font-size: 0.82rem; }
 
-/* The toy: a tiny Mac above a dashed trackpad */
+/* The toy: a tiny Mac above a dashed trackpad, under man dumbterminal */
+.try { margin: 1.6rem 0 0.4rem; }
+.try > .dim { font-family: var(--mono); font-size: 0.85rem; margin: 0 0 0.8rem; text-align: center; }
 .toy { display: flex; flex-direction: column; align-items: center; user-select: none; -webkit-user-select: none; }
 .mini { width: min(100%, 22rem); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px color-mix(in srgb, var(--accent) 12%, transparent); }
