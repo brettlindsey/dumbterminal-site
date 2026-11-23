@@ -3,9 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#050805">
 <title>Dumb Terminal Support</title>
 <link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="/style.css">
+<script src="/site.js" defer></script>
 </head>
 <body>
 <div class="narrow">
@@ -131,6 +135,7 @@ bottom.</p>
     <a href="/privacy/">Privacy</a>
     <a href="/terms/">Terms</a>
     <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
+    <span class="shell-hint" role="button" tabindex="0" aria-label="Open a little shell">% <span class="cursor" aria-hidden="true"></span></span>
     <p class="legal">Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
   </div>
 </footer>
