@@ -5,120 +5,135 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="theme-color" content="#050805">
-<title>Dumb Terminal: your Mac, on your iPhone and iPad</title>
-<meta name="description" content="A green-screen remote desktop for your Mac. Nothing to install on the Mac: Dumb Terminal uses its built-in Screen Sharing. Free on your own network.">
+<meta name="theme-color" content="#0A0F0A">
+<meta name="color-scheme" content="dark">
+<title>Dumb Terminal: your Mac on your iPhone and iPad</title>
+<meta name="description" content="Nothing to install on your Mac. Dumb Terminal puts your Mac on your iPhone and iPad using the Screen Sharing built into macOS. Free on your own network.">
 <link rel="icon" href="/img/icon.png">
 <link rel="apple-touch-icon" href="/img/icon.png">
 <link rel="stylesheet" href="/style.css">
+<script src="/theme-boot.js"></script>
 <script src="/site.js" defer></script>
+<script src="/toy.js" defer></script>
+<script src="/shell.js" defer></script>
+<script src="/arcade.js" defer></script>
+<script src="/themes.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<div class="hero">
-  <div class="wrap">
-    <header class="top">
-      <a class="brand" href="/"><img src="/img/icon.png" alt="">Dumb Terminal</a>
-      <details class="menu">
-        <summary aria-label="Menu"><span></span><span></span><span></span></summary>
-        <nav class="menu-panel" aria-label="Site">
-          <a href="/releases/">What's New</a>
-          <a href="/support/">Support</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/terms/">Terms</a>
-        </nav>
-      </details>
-    </header>
-    <div class="hero-body">
-      <div class="hero-copy">
-        <h1>Your Mac,<br>in your pocket<span class="cursor" aria-hidden="true"></span></h1>
-        <p class="sub">A fast, simple remote desktop with a green-screen soul. Dumb Terminal uses the Screen Sharing already built into macOS: turn it on once, tap your Mac, and use it with a trackpad, touch or a keyboard.</p>
-        <!-- At launch, remove "hidden" so the App Store badge shows. -->
-        <a class="store" href="https://apps.apple.com/app/id6838130064" aria-label="Download on the App Store" hidden><img src="/img/app-store-badge.png" alt="Download on the App Store" width="185" height="55"></a>
-        <p class="note">Coming soon to the App Store · Free on your own network · iPhone and iPad, iOS 17 or later.</p>
-      </div>
-      <div class="term" aria-label="An example session: Dumb Terminal finds a Mac and connects to it">
-        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>you@iphone: ~</span></div>
-        <div class="term-body" aria-hidden="true" data-script="$ ping macmini.local
-|macmini.local is up · 3 ms
-$ dumbterminal connect macmini
-finding mac ............ ok
-signing in ............. ok
-loading screen ......... ok
-!connected. your mac is in your hand.
-$ "></div>
-      </div>
+<header class="top wrap">
+  <a class="brand" href="/"><img src="/img/icon.png" alt="" width="30" height="30"><span>~/dumbterminal</span></a>
+  <nav class="nav-wide" aria-label="Site">
+    <a href="/releases/">./whats-new</a>
+    <a href="/support/">./support</a>
+    <a href="/privacy/">./privacy</a>
+    <a href="/terms/">./terms</a>
+  </nav>
+  <details class="menu">
+    <summary>menu</summary>
+    <nav class="nav" aria-label="Site menu">
+      <a href="/releases/">./whats-new</a>
+      <a href="/support/">./support</a>
+      <a href="/privacy/">./privacy</a>
+      <a href="/terms/">./terms</a>
+    </nav>
+  </details>
+</header>
+
+<main id="main">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <pre class="boot" aria-hidden="true"></pre>
+      <h1>Nothing to install on your&nbsp;Mac.<button class="cursor" type="button" data-shell aria-label="Open the command line"></button></h1>
+      <p class="tagline">Your Mac on your iPhone and iPad.</p>
+      <p class="sub">Dumb Terminal uses the Screen Sharing already built into macOS. Turn it on once, tap your Mac, and use it with a trackpad, touch or a keyboard. Free on your own network, forever.</p>
+      <p class="actions">
+        <a class="button" href="#beta">./get-the-beta</a>
+        <a class="button ghost" href="#setup">./setup</a>
+      </p>
+      <!-- At launch: remove "hidden" so the App Store badge shows, and point the ./get-the-beta button at it. -->
+      <a class="store" href="https://apps.apple.com/app/id6838130064" hidden><img src="/img/app-store-badge.png" alt="Download on the App Store" width="185" height="55"></a>
+      <p class="note">iPhone and iPad with iOS 17 or later. Coming to the App Store.</p>
     </div>
-  </div>
-</div>
+    <div class="toy" aria-hidden="true">
+      <div class="mini">
+        <div class="mini-bar"><i></i><i></i><i></i></div>
+        <div class="mini-desk">
+          <div class="win w1"><b>Notes</b><span></span><span></span><span></span></div>
+          <div class="win w2"><b>Terminal</b><span></span><span></span></div>
+          <div class="win w3"><b>Photos</b><span></span></div>
+          <svg class="mini-pointer" viewBox="0 0 14 22" width="12" height="18"><path d="M1 1v16l4-4 3 7 3-1-3-7h5z"/></svg>
+        </div>
+      </div>
+      <div class="mini-stand"></div>
+      <div class="pad">[ trackpad ]</div>
+    </div>
+  </section>
 
-<main>
-  <section class="reveal wrap center" id="get-started">
-    <h2>Ready in a minute</h2>
+  <section class="block wrap" id="setup">
+    <h2>./setup</h2>
     <p class="lede">Three steps, once. No helper app, no account. After that, your Mac is one tap away.</p>
     <ol class="steps">
       <li class="step">
-        <span class="num">1</span>
+        <p class="log"><span class="n">[1/3]</span> turn on screen sharing <span class="bar" data-bar>[##########] ok</span></p>
         <h3>Turn on Screen Sharing</h3>
         <p>On your Mac, in System Settings › General › Sharing. It’s built in.</p>
       </li>
       <li class="step">
-        <span class="num">2</span>
+        <p class="log"><span class="n">[2/3]</span> open dumb terminal <span class="bar" data-bar>[##########] ok</span></p>
         <h3>Open Dumb Terminal</h3>
         <p>Macs on your Wi-Fi show up by themselves. Add the free Tailscale app and they follow you anywhere.</p>
       </li>
       <li class="step">
-        <span class="num">3</span>
+        <p class="log"><span class="n">[3/3]</span> tap your mac <span class="bar" data-bar>[##########] ok</span></p>
         <h3>Tap your Mac</h3>
         <p>You’re in. Use it with a trackpad, touch or a keyboard.</p>
       </li>
     </ol>
   </section>
 
-  <section class="reveal wrap">
-    <h2>Free at home</h2>
+  <section class="block wrap" id="access">
+    <h2>./access</h2>
     <p class="lede">Everything works on your own network for free, forever. Buy Root Access once when you want your Mac on the go.</p>
     <div class="plans">
-      <div class="plan">
-        <span class="tag">Free</span>
-        <h3>Nearby</h3>
-        <p class="price">Free forever <em>· no account</em></p>
-        <ul>
+      <div class="panel plan">
+        <p class="cmd">$ cat free.txt</p>
+        <h3>Free, nearby</h3>
+        <p class="price">Free forever · no account</p>
+        <ul class="check">
           <li>Every Mac on your Wi-Fi, found automatically</li>
           <li>Trackpad, touch, keyboard, wake, Siri and widgets</li>
         </ul>
       </div>
-      <div class="plan pro">
-        <span class="tag">Root Access</span>
-        <h3>From anywhere</h3>
-        <p class="price">One-time purchase <em>· 1 week free · no subscription</em></p>
-        <ul>
+      <div class="panel plan root">
+        <p class="cmd"># cat root-access.txt</p>
+        <h3>Root Access, from anywhere</h3>
+        <p class="price">One-time purchase · 1 week free · no subscription</p>
+        <ul class="check">
           <li>Reach your Mac from any network over Tailscale</li>
           <li>Straight to your Mac, never through our servers</li>
           <li>Yours for good, on every device with your Apple Account</li>
           <li>Needs the free Tailscale app on your Mac and device</li>
+          <li>A few surprises we won’t spoil</li>
           <li>Price shown in the App Store before you buy</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Free beta on TestFlight: hidden until the public TestFlight link exists. To show it, replace
-       TESTFLIGHT_PUBLIC_LINK below with the link from App Store Connect › TestFlight › External Testing › Public Link
-       (it looks like https://testflight.apple.com/join/XXXXXXXX), then delete this comment's opening and closing lines.
-  <section class="reveal wrap">
-    <div class="beta">
-      <h2>Free beta on TestFlight</h2>
-      <p>Try the newest Dumb Terminal before it reaches the App Store. Away Access is included during the beta.
-      Install Apple's TestFlight app, then open the invite on your iPhone or iPad.</p>
-      <p><a class="button" href="TESTFLIGHT_PUBLIC_LINK">Join the beta</a></p>
-      <p class="note">Send feedback from the TestFlight app, with a screenshot if you like, or email support@dumbterminal.app.</p>
+  <section class="block wrap" id="beta">
+    <div class="panel beta">
+      <h2>./beta</h2>
+      <p>Try the newest Dumb Terminal before it reaches the App Store. Away Access is included during the beta. Install Apple’s TestFlight app, then open the invite on your iPhone or iPad.</p>
+      <!-- When the public TestFlight link exists: put it in href below and remove "hidden"; then remove the "opening soon" line. -->
+      <p><a class="button" href="https://testflight.apple.com/" data-testflight hidden>./join-the-beta</a></p>
+      <p class="soon"><span class="warn">beta opening soon.</span> Want in early? Email <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>.</p>
     </div>
   </section>
-  -->
 
-  <section class="reveal wrap">
-    <h2>Feels like your Mac</h2>
+  <section class="block wrap" id="features">
+    <h2>man dumbterminal</h2>
     <p class="lede">The gestures and keys you already know, on the screen in your hand.</p>
     <div class="features">
       <div class="feature">
@@ -147,7 +162,7 @@ $ "></div>
       </div>
       <div class="feature">
         <h3>A laptop on a foldable</h3>
-        <p>Open a foldable iPhone and the desktop sits above a keyboard and trackpad, like a small laptop. Close it, and the outside screen has a few secrets.</p>
+        <p>Open a foldable iPhone and the desktop sits above a keyboard and trackpad, like a small laptop.</p>
       </div>
       <div class="feature">
         <h3>Every display</h3>
@@ -160,26 +175,31 @@ $ "></div>
     </div>
   </section>
 
-  <section class="reveal wrap">
-    <div class="private">
-      <div>
-        <h2>Private by design</h2>
-        <p>Dumb Terminal is built on the Screen Sharing that Apple puts in every Mac, so there is nothing to install there and nothing to sign up for. The picture and your typing travel between your own devices, on your Wi-Fi or your own Tailscale network; none of it passes through computers run by Dumb Terminal. No ads, no tracking. Saved passwords stay on your device, behind Face ID if you like, and your list of Macs syncs only through your own iCloud.</p>
-      </div>
+  <section class="block wrap" id="privacy">
+    <div class="panel private">
+      <h2>No account. No server.</h2>
+      <p>Dumb Terminal is built on the Screen Sharing that Apple puts in every Mac, so there is nothing to install there and nothing to sign up for. The picture and your typing travel between your own devices, on your Wi-Fi or your own Tailscale network; none of it passes through computers run by Dumb Terminal. No ads, no tracking. Saved passwords stay on your device, behind Face ID if you like, and your list of Macs syncs only through your own iCloud.</p>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 Dumb Terminal</span>
-    <a href="/releases/">What's New</a>
-    <a href="/support/">Support</a>
-    <a href="/privacy/">Privacy</a>
-    <a href="/terms/">Terms</a>
-    <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
-    <span class="shell-hint" role="button" tabindex="0" aria-label="Open a little shell">% <span class="cursor" aria-hidden="true"></span></span>
-    <p class="legal">Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="clock">
+      <p class="dim" aria-hidden="true">% date +%H:%M</p>
+      <p class="time" data-clock>--:--</p>
+      <p class="dim" data-uptime>ttys-web</p>
+      <p><span aria-hidden="true">% </span><button class="cursor" type="button" data-shell aria-label="Open the command line"></button></p>
+    </div>
+    <nav class="foot-links" aria-label="More">
+      <a href="/releases/">./whats-new</a>
+      <a href="/support/">./support</a>
+      <a href="/privacy/">./privacy</a>
+      <a href="/terms/">./terms</a>
+      <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
+    </nav>
+    <p class="secret">the app has secrets too. we won’t say where.</p>
+    <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
   </div>
 </footer>
 </body>

@@ -5,28 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="theme-color" content="#050805">
+<meta name="theme-color" content="#0A0F0A">
+<meta name="color-scheme" content="dark">
 <title>Dumb Terminal Privacy Policy</title>
 <link rel="icon" href="/img/icon.png">
 <link rel="stylesheet" href="/style.css">
+<script src="/theme-boot.js"></script>
 <script src="/site.js" defer></script>
+<script src="/shell.js" defer></script>
+<script src="/arcade.js" defer></script>
+<script src="/themes.js" defer></script>
 </head>
 <body>
-<div class="narrow">
-  <header class="top">
-    <a class="brand" href="/"><img src="/img/icon.png" alt="">Dumb Terminal</a>
-    <details class="menu">
-      <summary aria-label="Menu"><span></span><span></span><span></span></summary>
-      <nav class="menu-panel" aria-label="Site">
-          <a href="/releases/">What's New</a>
-          <a href="/support/">Support</a>
-          <a href="/privacy/" aria-current="page">Privacy</a>
-          <a href="/terms/">Terms</a>
-      </nav>
-    </details>
-  </header>
-</div>
-<main class="narrow doc">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top wrap">
+  <a class="brand" href="/"><img src="/img/icon.png" alt="" width="30" height="30"><span>~/dumbterminal</span></a>
+  <nav class="nav-wide" aria-label="Site">
+    <a href="/releases/">./whats-new</a>
+    <a href="/support/">./support</a>
+    <a href="/privacy/" aria-current="page">./privacy</a>
+    <a href="/terms/">./terms</a>
+  </nav>
+  <details class="menu">
+    <summary>menu</summary>
+    <nav class="nav" aria-label="Site menu">
+      <a href="/releases/">./whats-new</a>
+      <a href="/support/">./support</a>
+      <a href="/privacy/" aria-current="page">./privacy</a>
+      <a href="/terms/">./terms</a>
+    </nav>
+  </details>
+</header>
+
+<main id="main" class="wrap doc">
+<p class="cmd">$ cat privacy.md</p>
 <h1>Privacy Policy</h1>
 <p class="lead">Effective November 22, 2026</p>
 <p>Dumb Terminal lets you view and control your own Mac from an iPhone or iPad. It works without an account and without
@@ -95,17 +108,23 @@ so leave it off if you copy passwords on this device.</li>
 
 </main>
 
-<footer>
-  <div class="narrow">
-    <span>© 2026 Dumb Terminal</span>
-    <a href="/">Home</a>
-    <a href="/releases/">What's New</a>
-    <a href="/support/">Support</a>
-    <a href="/privacy/">Privacy</a>
-    <a href="/terms/">Terms</a>
-    <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
-    <span class="shell-hint" role="button" tabindex="0" aria-label="Open a little shell">% <span class="cursor" aria-hidden="true"></span></span>
-    <p class="legal">Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="clock">
+      <p class="dim" aria-hidden="true">% date +%H:%M</p>
+      <p class="time" data-clock>--:--</p>
+      <p class="dim" data-uptime>ttys-web</p>
+      <p><span aria-hidden="true">% </span><button class="cursor" type="button" data-shell aria-label="Open the command line"></button></p>
+    </div>
+    <nav class="foot-links" aria-label="More">
+      <a href="/releases/">./whats-new</a>
+      <a href="/support/">./support</a>
+      <a href="/privacy/">./privacy</a>
+      <a href="/terms/">./terms</a>
+      <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
+    </nav>
+    <p class="secret">the app has secrets too. we won’t say where.</p>
+    <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
   </div>
 </footer>
 </body>
