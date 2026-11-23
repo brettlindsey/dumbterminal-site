@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dumb Terminal: your Mac, on your iPhone and iPad</title>
+<meta name="description" content="Control your Mac from iPhone or iPad with nothing to install on the Mac: Dumb Terminal uses its built-in Screen Sharing. Free on your own network.">
+<link rel="icon" href="/img/icon.png">
+<link rel="apple-touch-icon" href="/img/icon.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="/"><img src="/img/icon.png" alt="">Dumb Terminal</a>
+      <details class="menu">
+        <summary aria-label="Menu"><span></span><span></span><span></span></summary>
+        <nav class="menu-panel" aria-label="Site">
+            <a href="/releases/">What's New</a>
+          <a href="/support/">Support</a>
+            <a href="/privacy/">Privacy</a>
+            <a href="/terms/">Terms</a>
+        </nav>
+      </details>
+    </header>
+    <div class="hero-body">
+      <div class="hero-copy">
+        <h1>Nothing to install on your Mac.</h1>
+        <p class="sub">Dumb Terminal uses the Screen Sharing already built into macOS. Turn it on once, open Dumb Terminal, tap your Mac, and use it with a trackpad, touch or a keyboard.</p>
+        <!-- App Store badge: add back with the new app's link once Dumb Terminal is on the App Store.
+        <a class="store" href="https://apps.apple.com/app/idNEW_APP_ID" aria-label="Download on the App Store"><img src="/img/app-store-badge.png" alt="Download on the App Store" width="185" height="55"></a>
+        -->
+        <p class="note">Free on your own network. iPhone and iPad, with iOS 17 or later.</p>
+      </div>
+      <svg class="connect" data-device="phone" viewBox="0 0 400 220" fill="none" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="An iPhone, iPad or foldable connecting to a Mac">
+        <path class="link" d="M128 104H202" />
+        <g class="dev dev-phone">
+          <rect class="screen-fill" x="48" y="56" width="52" height="104" rx="13" />
+          <g class="mirror"><rect x="55" y="70" width="38" height="25" rx="3" /><rect class="win" x="60" y="75" width="15" height="10" rx="1.5" /><rect class="win" x="73" y="80" width="14" height="10" rx="1.5" /></g>
+          <circle class="finger" cx="74" cy="128" r="4" />
+          <rect class="body" x="48" y="56" width="52" height="104" rx="13" />
+        </g>
+        <g class="dev dev-tablet">
+          <rect class="screen-fill" x="20" y="48" width="104" height="128" rx="11" />
+          <g class="mirror"><rect x="30" y="60" width="84" height="52" rx="4" /><rect class="win" x="40" y="69" width="32" height="22" rx="2" /><rect class="win" x="66" y="79" width="30" height="22" rx="2" /></g>
+          <circle class="finger" cx="72" cy="146" r="4.5" />
+          <rect class="body" x="20" y="48" width="104" height="128" rx="11" />
+        </g>
+        <g class="dev dev-fold">
+          <rect class="screen-fill" x="30" y="52" width="88" height="112" rx="12" />
+          <g class="mirror"><rect x="38" y="62" width="72" height="40" rx="3" /><rect class="win" x="46" y="69" width="27" height="17" rx="1.5" /><rect class="win" x="67" y="77" width="26" height="17" rx="1.5" /></g>
+          <path class="hinge" d="M30 108H118" />
+          <circle class="finger" cx="74" cy="136" r="4" />
+          <rect class="body" x="30" y="52" width="88" height="112" rx="12" />
+        </g>
+        <g class="mac">
+          <rect class="screen-fill" x="212" y="44" width="160" height="108" rx="13" />
+          <g class="desktop">
+            <rect class="win" x="232" y="62" width="62" height="42" rx="4" />
+            <rect class="win" x="276" y="82" width="70" height="46" rx="4" />
+            <path class="pointer" d="M300 96l0 15 4-4 3 7 3-1.4-3-7 6 0z" />
+          </g>
+          <rect class="body" x="212" y="44" width="160" height="108" rx="13" />
+          <path class="body" d="M266 174h52" />
+        </g>
+        <circle class="dot" cx="165" cy="104" r="9" />
+        <circle class="ripple" cx="165" cy="104" r="9" />
+      </svg>
+    </div>
+  </div>
+  <div class="scene" aria-hidden="true">
+    <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0 60C240 20 420 20 720 52s520 40 720 0v68H0z" fill="var(--wave-1)"/>
+      <path d="M0 92c260-30 520-34 760-10s460 22 680-6v44H0z" fill="var(--wave-2)"/>
+      <path d="M0 112c300-14 620-14 900-2s400 6 540 0v10H0z" fill="var(--bg)"/>
+    </svg>
+  </div>
+</div>
+
+<main>
+  <section class="wrap center" id="get-started">
+    <h2>Ready in a minute</h2>
+    <p class="lede">Three steps, once. No helper app, no account. After that, your Mac is one tap away.</p>
+    <ol class="steps">
+      <li class="step">
+        <svg viewBox="0 0 200 130" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect class="screen-fill" x="40" y="14" width="120" height="82" rx="11" />
+          <path class="soft" d="M58 40h44M58 56h30M58 72h38" />
+          <rect class="toggle-track" x="116" y="33" width="26" height="15" rx="7.5" />
+          <circle class="toggle-knob" cx="124" cy="40.5" r="5.5" />
+          <rect class="body" x="40" y="14" width="120" height="82" rx="11" />
+          <path class="body" d="M80 114h40" />
+        </svg>
+        <span class="num">1</span>
+        <h3>Turn on Screen Sharing</h3>
+        <p>On your Mac, in System Settings › General › Sharing. It’s built in.</p>
+      </li>
+      <li class="step">
+        <svg viewBox="0 0 200 130" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect class="screen-fill" x="72" y="8" width="56" height="114" rx="13" />
+          <path class="soft" d="M82 28h22" />
+          <g class="found">
+            <rect class="row" x="80" y="44" width="40" height="20" rx="6" />
+            <rect class="row-icon" x="84" y="49" width="10" height="10" rx="2.5" />
+            <path class="soft" d="M98 54h10" />
+            <circle class="online" cx="114" cy="54" r="2.2" />
+          </g>
+          <g class="found found-2">
+            <rect class="row" x="80" y="70" width="40" height="20" rx="6" />
+            <rect class="row-icon" x="84" y="75" width="10" height="10" rx="2.5" />
+            <path class="soft" d="M98 80h12" />
+            <circle class="online" cx="114" cy="80" r="2.2" />
+          </g>
+          <rect class="body" x="72" y="8" width="56" height="114" rx="13" />
+        </svg>
+        <span class="num">2</span>
+        <h3>Open Dumb Terminal</h3>
+        <p>Macs on your Wi-Fi show up by themselves. Add the free Tailscale app and they follow you anywhere.</p>
+      </li>
+      <li class="step">
+        <svg viewBox="0 0 200 130" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect class="screen-fill" x="72" y="8" width="56" height="114" rx="13" />
+          <g class="opened">
+            <rect class="desk" x="78" y="16" width="44" height="46" rx="5" />
+            <rect class="win" x="83" y="23" width="20" height="14" rx="2" />
+            <rect class="win" x="96" y="33" width="20" height="16" rx="2" />
+            <rect class="pad" x="78" y="68" width="44" height="46" rx="6" />
+          </g>
+          <circle class="tap" cx="100" cy="91" r="5" />
+          <rect class="body" x="72" y="8" width="56" height="114" rx="13" />
+        </svg>
+        <span class="num">3</span>
+        <h3>Tap your Mac</h3>
+        <p>You’re in. Use it with a trackpad, touch or a keyboard.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Free at home</h2>
+    <p class="lede">Everything works on your own network for free, forever. Buy Away Access once when you want your Mac on the go.</p>
+    <div class="plans">
+      <div class="plan">
+        <span class="tag">Free</span>
+        <h3>Nearby</h3>
+        <p class="price">Free forever <em>· no account</em></p>
+        <ul>
+          <li>Every Mac on your Wi-Fi, found automatically</li>
+          <li>Trackpad, touch, keyboard, wake, Siri and widgets</li>
+        </ul>
+      </div>
+      <div class="plan pro">
+        <span class="tag">Away Access</span>
+        <h3>From anywhere</h3>
+        <p class="price">One-time purchase <em>· 1 week free · no subscription</em></p>
+        <ul>
+          <li>Reach your Mac from any network over Tailscale</li>
+          <li>Straight to your Mac, never through our servers</li>
+          <li>Yours for good, on every device with your Apple Account</li>
+          <li>Needs the free Tailscale app on your Mac and device</li>
+          <li>Price shown in the App Store before you buy</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Free beta on TestFlight: hidden until the public TestFlight link exists. To show it, replace
+       TESTFLIGHT_PUBLIC_LINK below with the link from App Store Connect › TestFlight › External Testing › Public Link
+       (it looks like https://testflight.apple.com/join/XXXXXXXX), then delete this comment's opening and closing lines.
+  <section class="wrap">
+    <div class="beta">
+      <h2>Free beta on TestFlight</h2>
+      <p>Try the newest Dumb Terminal before it reaches the App Store. Everything is included during the beta, Away Access too.
+      Install Apple's TestFlight app, then open the invite on your iPhone or iPad.</p>
+      <p><a class="button" href="TESTFLIGHT_PUBLIC_LINK">Join the beta</a></p>
+      <p class="note">Send feedback from the TestFlight app, with a screenshot if you like, or email support@dumbterminal.app.</p>
+    </div>
+  </section>
+  -->
+
+  <section class="wrap">
+    <h2>Feels like your Mac</h2>
+    <p class="lede">The gestures and keys you already know, on the screen in your hand.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="3"/><path d="M3 14h18M12 14v4"/></svg></div>
+        <h3>A real trackpad</h3>
+        <p>Tap to click, two-finger tap or press and hold to right-click, scroll, and hold and move to drag. Or just tap where you want.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M7.5 14h9"/></svg></div>
+        <h3>Mac keys and shortcuts</h3>
+        <p>⌘ ⌥ ⌃ ⇧, Esc and arrows above the keyboard, plus one-tap Spotlight, Mission Control and shortcuts of your own. Or bring a keyboard, mouse or Apple Pencil.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l-2 3 2 3M20 9l2 3-2 3"/><path d="M8 7v10M12 7v10M16 7v10"/></svg></div>
+        <h3>Mac gestures</h3>
+        <p>Three fingers switch Spaces and open Mission Control. Four fingers switch apps.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+        <h3>Talk to type</h3>
+        <p>Dictate and send the words to any app on your Mac. Speech is recognized on your device.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18.4 5.6l-2.1 2.1M21 12h-3"/><circle cx="12" cy="14" r="5"/></svg></div>
+        <h3>Wakes your Mac</h3>
+        <p>Wake a sleeping Mac with one tap, or let Dumb Terminal wake the one you used last as it opens.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c0-1 .8-2 2-2M8 12c0-2.5 1.5-5 4-5s4 2.5 4 5-1.5 5-4 5-4-2.5-4-5zM20 12c0-1-.8-2-2-2"/></svg></div>
+        <h3>Siri, Shortcuts and widgets</h3>
+        <p>“Wake my Mac.” Ask Siri to wake, check or open your Mac, or put it on your Home Screen and Lock Screen.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="9" rx="1.5"/><path d="M4 21l1.5-7h13L20 21z"/></svg></div>
+        <h3>A laptop on a foldable</h3>
+        <p>Bend a foldable iPhone and the desktop sits above a trackpad, like a small MacBook.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="11" height="8" rx="1.5"/><rect x="10.5" y="10" width="11" height="8" rx="1.5"/></svg></div>
+        <h3>Every display</h3>
+        <p>Pick the screen you want on a Mac with more than one, and share the clipboard if you like.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+        <h3>On the big screen</h3>
+        <p>Connect a TV or monitor: your Mac fills it, and your device becomes the trackpad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="private">
+      <div class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></div>
+      <div>
+        <h2>Private by design</h2>
+        <p>Dumb Terminal is built on the Screen Sharing that Apple puts in every Mac, so there is nothing to install there and nothing to sign up for. The picture and your typing travel between your own devices, on your Wi-Fi or your own Tailscale network; none of it passes through computers run by Dumb Terminal. No ads, no tracking. Saved passwords stay on your device, behind Face ID if you like, and your list of Macs syncs only through your own iCloud.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Dumb Terminal</span>
+    <a href="/releases/">What's New</a>
+    <a href="/support/">Support</a>
+    <a href="/privacy/">Privacy</a>
+    <a href="/terms/">Terms</a>
+    <a href="mailto:support@dumbterminal.app">support@dumbterminal.app</a>
+    <p class="legal">Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+  </div>
+</footer>
+
+<script>
+// The hero: a device and a Mac connect, as in the app's mark: the dot carries the link, the Mac's screen appears
+// on the device, and the pointer follows a finger. It cycles iPhone, iPad and a foldable; Reduce Motion shows it
+// connected and still.
+(function () {
+  var scene = document.querySelector('.connect');
+  if (!scene) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    scene.classList.add('connected', 'still');
+    return;
+  }
+  var devices = ['phone', 'tablet', 'fold'];
+  var turn = 0;
+  function at(ms, fn) { setTimeout(fn, ms); }
+  function cycle() {
+    scene.setAttribute('data-device', devices[turn % devices.length]);
+    scene.setAttribute('class', 'connect');
+    at(900, function () { scene.classList.add('linking'); });
+    at(2000, function () { scene.classList.add('connected'); });
+    at(2700, function () { scene.classList.add('using'); });
+    at(6600, function () { scene.classList.add('ending'); });
+    at(7400, function () { turn += 1; cycle(); });
+  }
+  cycle();
+})();
+</script>
+</body>
+</html>
