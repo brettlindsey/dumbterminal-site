@@ -146,4 +146,34 @@
   };
   tickClock();
   setInterval(tickClock, 15000);
+
+  // ---- The pointer: a different odd character on every visit (Terminal theme, with a mouse or trackpad). ----
+  var pointerGlyphs = ['§', '¶', 'Ж', 'Ψ', 'Ω', '∆', '∑', '∞', '≈', '⌘', '⌥', '⎋', '⏚', '☊', '♆', '⚚', '✣', '✺', '❖', '⟁',
+    '⧖', 'ʘ', 'ϟ', 'Ѣ', '₪', '¤', '‡', '†', '※', '⁂', '⌬', '⏣', '⍟', '⎈', '☈', 'Ѫ', 'ᚠ', 'ᛟ', 'λ', 'µ', 'Þ', 'ƒ', '∂', '∫', '√', '◊', '⌖'];
+  var sheet = Array.prototype.filter.call(document.styleSheets, function (x) { return /style\.css/.test(x.href || ''); })[0];
+  if (sheet && window.matchMedia('(pointer: fine)').matches) {
+    var glyph = pointerGlyphs[Math.floor(Math.random() * pointerGlyphs.length)];
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text x='16' y='24' " +
+      "text-anchor='middle' font-family='Menlo, monospace' font-size='24' font-weight='700' fill='#7CFF9B' stroke='#0A0F0A' " +
+      "stroke-width='3' paint-order='stroke'>" + glyph + '</text></svg>';
+    try {
+      sheet.insertRule('html:not([data-theme]) { --cursor: url("data:image/svg+xml,' + encodeURIComponent(svg) + '") 16 16, auto; }',
+        sheet.cssRules.length);
+    } catch (e) { /* keeps the arrow */ }
+  }
+
+  // ---- Every 19 to 79 seconds, a bright line sweeps down the screen, like a tube refreshing. ----
+  if (!DT.still()) {
+    var sweep = function () {
+      if (!document.hidden && !DT.still()) {
+        var line = document.createElement('div');
+        line.className = 'sweep';
+        line.setAttribute('aria-hidden', 'true');
+        line.addEventListener('animationend', function () { line.remove(); });
+        document.body.appendChild(line);
+      }
+      setTimeout(sweep, (19 + Math.random() * 60) * 1000);
+    };
+    setTimeout(sweep, (19 + Math.random() * 60) * 1000);
+  }
 })();

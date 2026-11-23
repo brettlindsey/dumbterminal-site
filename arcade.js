@@ -109,7 +109,11 @@
     game = name === 'snake' ? snake() : stack();
     canvas.focus();
   };
-  DT.arcade = { open: open };
+  DT.arcade = {
+    open: open,
+    // True while the arcade is open or its code is being typed, so other key handlers stay out of the way.
+    busy: function () { return (overlay && !overlay.hidden) || progress >= 4; }
+  };
 
   // ---- Snake ----
   var snake = function () {
@@ -293,8 +297,12 @@
 
   // ---- Keys: the code to open it, and the controls while it's open. ----
   var names = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', Enter: 'enter', ' ': 'space' };
-  var code = ['up', 'up', 'down', 'down'];
+  // Up, up, down, down opens the arcade. Keep going (left, right, left, right, b, a) and the page panics instead.
+  var code = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+  var keyNames = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', b: 'b', B: 'b', a: 'a', A: 'a' };
   var progress = 0;
+  var pending = null;
+  var openNow = function () { clearTimeout(pending); pending = null; progress = 0; open(); };
   document.addEventListener('keydown', function (e) {
     var t = e.target;
     var typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA');
@@ -305,9 +313,13 @@
       return;
     }
     if (typing) return;
-    var n = e.key === 'ArrowUp' ? 'up' : e.key === 'ArrowDown' ? 'down' : null;
+    var n = keyNames[e.key] || null;
+    if (pending && n !== 'left') { openNow(); return; }
+    clearTimeout(pending);
+    pending = null;
     progress = n === code[progress] ? progress + 1 : (n === 'up' ? 1 : 0);
-    if (progress === code.length) { progress = 0; open(); }
+    if (progress === 4) pending = setTimeout(openNow, 700);
+    if (progress === code.length) { progress = 0; if (DT.panic) DT.panic(); }
   });
 
   // On a phone: four swipes, up, up, down, down, anywhere on the page.

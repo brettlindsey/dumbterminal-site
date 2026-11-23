@@ -42,70 +42,28 @@
 <p class="cmd">$ cat privacy.md</p>
 <h1>Privacy Policy</h1>
 <p class="lead">Effective November 22, 2026</p>
-<p>Dumb Terminal lets you view and control your own Mac from an iPhone or iPad. It works without an account and without
-collecting anything about you. Nothing you do in Dumb Terminal is sent to the developer.</p>
-
-<h2>What Dumb Terminal does not do</h2>
+<p>Dumb Terminal collects nothing about you. There is no account, no analytics, no advertising, no tracking, and no developer servers to send anything to.</p>
+<h2>On your device</h2>
 <ul>
-<li>It has no accounts, analytics, advertising or tracking.</li>
-<li>It does not sell or share information about you, and it does not send anything to servers run by the
-developer: there are none.</li>
-<li>It does not use your location, contacts, photos or camera. It uses the microphone only while you dictate (see below).</li>
+<li>Your settings, shortcut keys and wake addresses, the themes you've unlocked, how many sessions you've had and your best scores in the hidden games.</li>
+<li>Saved passwords, in the iOS Keychain on this device only: never synced or backed up to other devices, and behind Face ID, Touch ID or your passcode if you like. If you let iOS save a sign-in to the Passwords app, Apple stores and syncs it, not Dumb Terminal.</li>
+<li>Each Mac's name, address, wake address and last-known state, shared only with Dumb Terminal's own widgets, Siri and Shortcuts.</li>
 </ul>
-
-<h2>What stays on your device</h2>
-<ul>
-<li><strong>Settings.</strong> Your preferences, your shortcut keys, the wake addresses you enter, how many sessions you
-have had and your best scores in the hidden games are stored on your device only.</li>
-<li><strong>Saved Macs, through your own iCloud.</strong> The Macs you save (each one's name, address, Tailscale
-address, kind of Mac, when you last used it and whether it is pinned) are kept on your device and, if you are signed
-in to iCloud, synced between your own devices through your private iCloud database. They are stored by Apple in your
-iCloud account; the developer cannot see them. Passwords are never synced (see below). To stop syncing, turn off
-iCloud for Dumb Terminal in iOS Settings, then your name, then iCloud.</li>
-<li><strong>Widgets, Siri and Shortcuts.</strong> So that widgets can show your Macs and Siri and Shortcuts can wake,
-check or open them by name, Dumb Terminal keeps each Mac's name, last-known state, address and wake address in storage
-shared with its own widgets, on this device only.</li>
-<li><strong>Passwords.</strong> If you choose to save a sign-in in Dumb Terminal, it is kept in the iOS Keychain, on this
-device only. It is marked "this device only" so it is not synced to iCloud or included in backups to other devices.
-You can require Face ID, Touch ID or your passcode before a saved password is used.</li>
-<li><strong>Apple Passwords.</strong> iOS may also offer to save a sign-in you type into Dumb Terminal to the Passwords
-app. If you accept, Apple stores it and, depending on your settings, syncs it with iCloud Keychain. That is handled
-by Apple, not by Dumb Terminal or its developer, and you can manage or delete it in Passwords.</li>
-</ul>
-
-<h2>Purchases</h2>
-<p>Root Access (which includes Away Access) and the free trial of Away Access are sold by Apple as one-time in-app
-purchases. Dumb Terminal asks the App Store
-on your device whether you have them; the developer does not receive your payment details, and Dumb Terminal does not
-send your purchases anywhere.</p>
-
+<h2>In your iCloud</h2>
+<p>Your saved Macs (each one's name, address, Tailscale address, kind of Mac, when you last used it and whether it's pinned) sync between your own devices through your private iCloud database. The developer can't see them, and passwords never sync. To stop, turn off iCloud for Dumb Terminal in iOS Settings, then your name, then iCloud.</p>
 <h2>What Dumb Terminal connects to</h2>
 <ul>
-<li><strong>Your Mac.</strong> Screen, keyboard and mouse data go directly between your device and your Mac, over your
-local network or over a private network you run yourself, such as Tailscale. They never pass through a server
-operated by the developer. Tailscale is a separate service with its own privacy policy.</li>
-<li><strong>Local network access.</strong> iOS asks permission before an app can find devices on your Wi-Fi. Dumb Terminal
-uses it only to find Macs that offer Screen Sharing and to connect to them.</li>
-<li><strong>Dictation (optional).</strong> When you tap the microphone above the keyboard, Dumb Terminal listens and turns
-your speech into text with Apple's speech recognition running on your device only: the audio never leaves your
-iPhone or iPad, and neither the audio nor the text is stored or sent anywhere. Only the text you choose to send is
-typed into your Mac. If on-device recognition isn't available for your language, dictation is not offered.</li>
-<li><strong>Clipboard (optional, off by default).</strong> If you turn on Share Clipboard, copied text is sent
-directly to your Mac and text copied on your Mac is placed on this device's clipboard, marked local-only so iOS
-does not pass it on to your other devices through Universal Clipboard. While it is on, Dumb Terminal's connection library
-sends whatever text is on this device's clipboard to your Mac, including passwords copied from a password manager,
-so leave it off if you copy passwords on this device.</li>
+<li><strong>Your Mac, directly.</strong> Screen, keyboard and mouse data go straight between your device and your Mac, on your Wi-Fi or over your own Tailscale network (a separate service with its own privacy policy). Nothing passes through a server run by the developer.</li>
+<li><strong>Your local network</strong>, only to find Macs that offer Screen Sharing, connect to them and wake them.</li>
+<li><strong>The microphone</strong>, only while you dictate. Speech becomes text on your device; the audio never leaves it and nothing is kept. Only the text you send is typed on your Mac.</li>
+<li><strong>Motion</strong>, only while you play a hidden game you steer by tilting. Nothing is kept.</li>
+<li><strong>The clipboard</strong>, only if you turn on Share Clipboard (off by default). Text you copy here is sent to your Mac, including passwords copied from a password manager, so leave it off if you copy passwords on this device. Text from your Mac stays on this device.</li>
+<li><strong>The App Store</strong>, to check whether you have Root Access or its free trial. Apple handles payment; the developer never sees your payment details.</li>
 </ul>
-
 <h2>Children</h2>
-<p>Dumb Terminal is not directed at children and does not knowingly collect personal information from them.</p>
-
-<h2>Changes</h2>
-<p>If this policy changes, the new version will be published at this address with a new effective date.</p>
-
-<h2>Contact</h2>
-<p><a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a></p>
-
+<p>Dumb Terminal isn't directed at children and collects nothing from anyone.</p>
+<h2>Changes and contact</h2>
+<p>Changes will be posted here with a new date. Questions: <a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a></p>
 </main>
 
 <footer class="foot">
@@ -125,6 +83,7 @@ so leave it off if you copy passwords on this device.</li>
     </nav>
     <p class="secret">the app has secrets too. we won’t say where.</p>
     <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+    <p class="tail" data-tail aria-hidden="true">guest@dumbterminal ~ % <span class="cursor"></span></p>
   </div>
 </footer>
 </body>

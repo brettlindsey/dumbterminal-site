@@ -18,6 +18,7 @@
 <script src="/shell.js" defer></script>
 <script src="/arcade.js" defer></script>
 <script src="/themes.js" defer></script>
+<script src="/screens.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -91,6 +92,41 @@
         <p>You’re in. Use it with a trackpad, touch or a keyboard.</p>
       </li>
     </ol>
+    <div class="split">
+      <div class="term">
+        <p class="dim">% open ~/screens/home.png</p>
+        <p data-decrypt-status>home.png · decrypted</p>
+        <p class="dim">Every Mac on your Wi-Fi shows up by name. Tap one and you’re in.</p>
+      </div>
+      <figure class="phone" data-decrypt>
+        <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Dumb Terminal’s home screen: “Good evening”, three Macs nearby with the Studio Mac ready to open, and two more Macs listed under Away.">
+      </figure>
+    </div>
+  </section>
+
+  <section class="block wrap" id="tune">
+    <h2>./tune</h2>
+    <p class="lede">Five channels, all of them Dumb Terminal. Turn the knob.</p>
+    <div class="tv-row">
+      <div class="tv" data-tv>
+        <div class="tv-screen">
+          <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Channel 3, home: your Macs, nearby and away, listed by name." data-tv-img>
+          <canvas class="tv-static" width="72" height="156" aria-hidden="true"></canvas>
+          <div class="tv-card" aria-hidden="true"><span>SIGNAL FOUND</span><span class="tv-card-box">press start</span></div>
+          <span class="tv-ch" aria-hidden="true" data-tv-ch>CH 03</span>
+        </div>
+        <button class="tv-knob" type="button" aria-label="Next channel" data-tv-next hidden></button>
+        <span class="tv-dial" aria-hidden="true"></span>
+      </div>
+      <ul class="channels" aria-label="Channels" hidden>
+        <li><button type="button" data-ch="3" aria-pressed="true">CH 03 · home</button><span class="what">Your Macs, nearby and away, by name.</span></li>
+        <li><button type="button" data-ch="4" aria-pressed="false">CH 04 · session</button><span class="what">Your Mac’s screen above a trackpad.</span></li>
+        <li><button type="button" data-ch="5" aria-pressed="false">CH 05 · status</button><span class="what">Every Mac at a glance: where it is, when you used it.</span></li>
+        <li><button type="button" data-ch="6" aria-pressed="false">CH 06 · config</button><span class="what">Settings, written like a config file.</span></li>
+        <li><button type="button" data-ch="7" aria-pressed="false">CH 07 · away</button><span class="what">Set it up once, then reach your Macs from anywhere.</span></li>
+      </ul>
+      <p class="sr-only" aria-live="polite" data-tv-say></p>
+    </div>
   </section>
 
   <section class="block wrap" id="access">
@@ -120,14 +156,25 @@
         </ul>
       </div>
     </div>
+    <div class="split">
+      <div class="term">
+        <p class="dim">% curl -O dumbterminal.app/away.png</p>
+        <p data-modem-line>away.png · 82K received</p>
+        <p class="dim" data-modem-note>(it’s quicker in the app. promise.)</p>
+        <p class="dim">Away from home, Dumb Terminal walks you through Tailscale once. After that your Macs answer from anywhere.</p>
+      </div>
+      <figure class="phone" data-modem>
+        <img src="/img/screens/away.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="The Away setup screen: a three-step checklist for reaching your Macs away from home with the free Tailscale app.">
+      </figure>
+    </div>
   </section>
 
   <section class="block wrap" id="beta">
     <div class="panel beta">
       <h2>./beta</h2>
       <p>Try the newest Dumb Terminal before it reaches the App Store. Away Access is included during the beta. Install Apple’s TestFlight app, then open the invite on your iPhone or iPad.</p>
-      <!-- When the public TestFlight link exists: put it in href below and remove "hidden"; then remove the "opening soon" line. -->
-      <p><a class="button" href="https://testflight.apple.com/" data-testflight hidden>./join-the-beta</a></p>
+      <!-- To open the beta: turn the public link on in TestFlight, remove "hidden" below, and remove the "opening soon" line. -->
+      <p><a class="button" href="https://testflight.apple.com/join/SDDhRjzf" data-testflight hidden>./join-the-beta</a></p>
       <p class="soon"><span class="warn">beta opening soon.</span> Want in early? Email <a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>.</p>
     </div>
   </section>
@@ -200,6 +247,7 @@
     </nav>
     <p class="secret">the app has secrets too. we won’t say where.</p>
     <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+    <p class="tail" data-tail aria-hidden="true">guest@dumbterminal ~ % <span class="cursor"></span></p>
   </div>
 </footer>
 </body>

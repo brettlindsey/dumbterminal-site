@@ -302,3 +302,71 @@ html[data-theme="lcd"] .doc p, html[data-theme="lcd"] .doc li, html[data-theme="
 @keyframes tube-light { 0% { opacity: 1; clip-path: inset(49.5% 0 49.5% 0); } 100% { opacity: 0; clip-path: inset(0 0 0 0); } }
 .trail { position: fixed; z-index: 96; width: 7px; height: 7px; margin: -3px 0 0 -3px; border-radius: 50%; pointer-events: none;
          background: #FF3CC8; box-shadow: 0 0 8px #FF3CC8, 0 0 3px #3CF2FF; transition: opacity 0.35s, transform 0.35s; }
+
+/* ---- Screenshots: a phone frame, the decrypt on the home screen, the slow modem, the channel-flip TV ---- */
+.split { max-width: 50rem; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem 2.5rem; align-items: center; margin-top: 2.2rem; }
+@media (max-width: 640px) { .split { grid-template-columns: 1fr; justify-items: center; } .split .term { justify-self: stretch; } }
+.term p { font-family: var(--mono); font-size: 0.9rem; margin: 0 0 0.35rem; }
+.term p:last-child { font-family: var(--body); font-size: 1rem; margin-top: 1rem; max-width: 30rem; }
+.phone { position: relative; margin: 0; width: clamp(200px, 62vw, 240px); aspect-ratio: 540 / 1174; border-radius: 32px; overflow: hidden;
+         border: 3px solid var(--line); background: #000; box-shadow: 0 0 40px color-mix(in srgb, var(--text) 16%, transparent); }
+.phone img, .tv-screen img { width: 100%; height: 100%; object-fit: cover; }
+.scramble { position: absolute; inset: 0; margin: 0; padding: 6px 8px; background: var(--bg); color: var(--accent);
+            font: 11px/13px var(--mono); white-space: pre; overflow: hidden; }
+.scan { position: absolute; left: 0; right: 0; height: 2px; background: var(--text); box-shadow: 0 0 12px 3px var(--text); }
+.modem-cover { position: absolute; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, var(--bg) 0 3px, var(--panel) 3px 6px); }
+.modem-bar { position: absolute; left: 0; height: 4px; background: var(--accent); }
+
+.tv-row { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem 2.5rem; align-items: center; margin-top: 2rem; }
+@media (max-width: 700px) { .tv-row { grid-template-columns: 1fr; justify-items: center; } .channels { justify-self: stretch; } }
+.tv { position: relative; background: var(--panel); border: 2px solid var(--line); border-radius: 24px; padding: 16px 58px 16px 16px; }
+.tv-screen { position: relative; width: clamp(180px, 56vw, 240px); aspect-ratio: 540 / 1174; border-radius: 26px / 16px; overflow: hidden; background: #000; }
+.tv-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0 2px, transparent 2px 4px), radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55)); }
+.tv-static { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; }
+.tv.tuning .tv-static, .tv.ch0 .tv-static { opacity: 1; }
+.tv.roll img { animation: roll 0.34s steps(6); }
+@keyframes roll { from { transform: translateY(-14%); filter: brightness(1.8); } to { transform: none; filter: none; } }
+.tv-card { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem;
+  font: 1rem var(--mono); color: var(--bg); text-transform: uppercase;
+  background: linear-gradient(90deg, var(--bright) 0 16%, var(--text) 16% 33%, var(--accent) 33% 50%, var(--dim) 50% 67%, var(--line) 67% 84%, var(--panel) 84%); }
+.tv-card span { background: var(--bg); color: var(--text); padding: 0.2rem 0.5rem; }
+.tv-card .tv-card-box { border: 2px solid var(--text); text-transform: none; }
+.tv.found .tv-card { display: flex; }
+.tv-ch { position: absolute; top: 10px; right: 14px; z-index: 2; font: 1.25rem var(--mono); color: var(--text); text-shadow: 0 0 8px var(--text); }
+.tv-knob { position: absolute; right: 12px; top: 30px; width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 2px solid var(--dim);
+  background: var(--bg); transform: rotate(var(--turn, 0deg)); transition: transform 0.25s ease; }
+.tv-knob::before { content: ""; position: absolute; left: 50%; top: 3px; width: 2px; height: 12px; margin-left: -1px; background: var(--text); }
+.tv-knob:hover { border-color: var(--text); }
+.tv-dial { position: absolute; right: 16px; top: 84px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); }
+.channels { list-style: none; padding: 0; margin: 0; font-family: var(--mono); }
+.channels li { margin-bottom: 0.55rem; }
+.channels button { background: none; border: 0; padding: 0.1rem 0.35rem; color: var(--text); font: inherit; font-size: 0.95rem; }
+.channels button:hover, .channels button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+.channels .what { display: block; padding-left: 0.35rem; color: var(--dim); font: 0.9rem/1.4 var(--body); }
+@media (prefers-reduced-motion: reduce) { .tv.roll img { animation: none; } .tv-knob { transition: none; } }
+
+/* ---- The prompt at the end of the page, and the old-games panic ---- */
+.tail { grid-column: 1 / -1; margin: 0.6rem 0 0; font: 0.95rem/1.5 var(--mono); color: var(--text); }
+.tail .shell-log { max-height: 18rem; overflow-y: auto; padding: 0; white-space: pre-wrap; }
+.tail .shell-log .dim, .tail .shell-log .echo { color: var(--dim); }
+.tail .shell-log .err { color: var(--error); }
+.tail .shell-line { padding: 0; }
+.tail .ps1, .shell .ps1 { white-space: pre; }
+.glitch { animation: glitch 0.34s steps(2) 6; }
+@keyframes glitch {
+  0% { transform: translate(0); filter: none; }
+  50% { transform: translate(3px, -2px); filter: hue-rotate(80deg) contrast(1.4); }
+  100% { transform: translate(-2px, 1px); }
+}
+
+/* The occasional sweep down the screen (site.js). Never with Reduce Motion. */
+.sweep { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 95; pointer-events: none;
+  background: var(--bright); box-shadow: 0 0 10px 3px var(--text), 0 0 36px 10px color-mix(in srgb, var(--text) 45%, transparent);
+  animation: sweep 1.5s linear forwards; }
+.sweep::before { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 70px;
+  background: linear-gradient(to top, color-mix(in srgb, var(--text) 18%, transparent), transparent); }
+@keyframes sweep { 0% { transform: translateY(-80px); opacity: 0; } 6% { opacity: 1; } 94% { opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sweep { display: none; } }
+.foot-grid > * { min-width: 0; }
+.tail .shell-line input { width: 100%; }
