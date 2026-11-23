@@ -131,7 +131,7 @@
   }
   document.addEventListener('keydown', function (e) {
     var typing = e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA');
-    if (!typing && e.key === '~') { e.preventDefault(); openShell(); }
+    if (!typing && (e.key === '~' || e.key === '`')) { e.preventDefault(); openShell(); }
   });
 
   // Falling characters for a few seconds.
