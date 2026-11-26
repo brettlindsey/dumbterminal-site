@@ -100,8 +100,8 @@ img { max-width: 100%; display: block; }
   .nav-wide { display: flex; }
 }
 
-/* Hero: the words, then the app on an iPad and an iPhone. On a phone the devices sit between the headline and the
-   paragraph, so the first screen shows the app. */
+/* Hero: the words, then the app on an iPhone drawn in text (textphone.js). On a phone the drawing sits between the
+   headline and the paragraph, so the first screen shows the app. */
 .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-areas: "copy devices" "more devices";
         grid-template-rows: auto 1fr; column-gap: 2.5rem; align-items: end; padding-top: 2.5rem; padding-bottom: 3rem; }
 .hero-copy { grid-area: copy; }
@@ -113,16 +113,16 @@ html.js:not(.headline) .hero h1 { visibility: hidden; animation: headline-late 0
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; grid-template-areas: "copy" "devices" "more"; grid-template-rows: none; padding-top: 1rem; }
 }
-.devices { grid-area: devices; align-self: center; position: relative; margin: 0 auto; width: min(100%, 22rem);
-           padding: 0 0 1.5rem 2.5rem; }
-@media (max-width: 860px) { .devices { width: min(100%, 19rem); margin: 0.8rem auto 1.4rem; padding: 0 0 1.2rem 2rem; } }
-.device { margin: 0; background: #000; border: 3px solid var(--line); overflow: hidden;
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 36px color-mix(in srgb, var(--text) 14%, transparent); }
-.device img { display: block; width: 100%; height: auto; }
-.device.ipad { border-radius: 20px; }
-.device.iphone { position: absolute; left: 0; bottom: 0; width: 38%; border-radius: 22px; }
-/* The open iPhone Duo, when its screenshot exists: front right, opposite the iPhone. */
-.device.duo { position: absolute; right: -6%; bottom: 0; width: 46%; border-radius: 16px; }
+/* 58 characters across: the font size follows the figure's width so the drawing always fits it. */
+.devices { grid-area: devices; align-self: center; margin: 0 auto; width: min(100%, 24rem); container-type: inline-size; }
+@media (max-width: 860px) { .devices { width: min(100%, 21rem); margin: 0.8rem auto 1.4rem; } }
+.textphone pre { margin: 0; font: calc(100cqi / 35) / 1 var(--mono); color: var(--text); white-space: pre; overflow: hidden;
+  text-shadow: 0 0 5px var(--glow); }
+.textphone i { display: inline-block; width: 1ch; font-style: normal; text-align: center; } /* box lines and symbols
+   come from fallback fonts of other widths; one character cell each keeps the edges straight */
+.textphone .tp-ptr { color: var(--bright); font-weight: 700; text-shadow: 0 0 8px var(--text), 0 0 2px var(--bright); }
+.textphone .tp-arrow { color: var(--bg); background: var(--bright); font-weight: 700; box-shadow: 0 0 10px var(--text); }
+.textphone .tp-trail, .textphone .tp-say { color: var(--dim); }
 .boot { margin: 0 0 1rem; min-height: 0; color: var(--dim); font-size: 0.85rem; line-height: 1.55; white-space: pre-wrap; }
 .boot:empty { display: none; }
 .boot .hi { color: var(--text); }
@@ -355,14 +355,10 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .intro-login.waiting img, .intro-login:not(.playing) img { opacity: 0; }
 .intro-login.playing .intro-text { opacity: 0; }
 
-/* ---- Frames (frames.js): one of five per visit, worn by every device on the page. Without JavaScript the
-   screenshots keep the plain outline above. Sizes are in em, so the hero's small iPhone shrinks its frame. ---- */
+/* ---- Frames (frames.js): one of five per visit, worn by every phone screenshot on the page. Without JavaScript the
+   screenshots keep the plain outline above. ---- */
 .frame { position: relative; font-size: 14px; }
-.frame > .device, .frame > .phone { border: 0; box-shadow: none; }
-.frame > .device { position: relative; }
-.frame > .device.iphone { position: relative; left: auto; bottom: auto; width: auto; }
-.frame[data-spot="iphone"] { position: absolute; left: 0; bottom: 0; width: 38%; font-size: 11px; background: var(--bg); border-radius: 12px; }
-.frame[data-spot="ipad"] { width: 100%; }
+.frame > .phone { border: 0; box-shadow: none; }
 
 /* A · terminal window */
 .frame[data-frame="win"] { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
@@ -373,7 +369,6 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .frame-bar { border-bottom: 1px solid var(--line); }
 .frame-bar b { color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
 .frame-foot { border-top: 1px solid var(--line); }
-.frame[data-spot="iphone"] .frame-size, .frame[data-spot="iphone"] .frame-foot { display: none; }
 
 /* B · the device drawn in box characters */
 .frame[data-frame="ascii"] { padding: 1.1em 1.7ch; font-family: var(--mono); line-height: 1; color: var(--text);
@@ -391,17 +386,12 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .fa-name { bottom: 0; left: 50%; transform: translateX(-50%); color: var(--dim); }
 .fa-key { width: 1ch; padding: 0; color: var(--bright); }
 .fa-k1 { left: 0; top: 17%; } .fa-k2 { left: 0; top: 25%; } .fa-k3 { left: 0; top: 32%; } .fa-k4 { right: 0; top: 24%; }
-.frame[data-spot="iphone"] .fa-name { display: none; }
 
 /* C · a phone-shaped tube */
 .frame[data-frame="crt"] { padding: 14px 12px 34px; border-radius: 30px; background: linear-gradient(165deg, #1d221e, #0b0d0b 70%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -2px 0 rgba(0, 0, 0, 0.6), 0 25px 50px rgba(0, 0, 0, 0.6),
   0 0 30px color-mix(in srgb, var(--text) 10%, transparent); }
-.frame[data-frame="crt"][data-spot="ipad"] { padding: 16px 16px 34px; border-radius: 26px; }
-.frame[data-frame="crt"][data-spot="iphone"] { padding: 7px 6px 18px; border-radius: 18px; }
 .frame[data-frame="crt"] > figure { border-radius: 22px / 26px; box-shadow: inset 0 0 0 2px #050805; }
-.frame[data-frame="crt"][data-spot="ipad"] > figure { border-radius: 14px / 18px; }
-.frame[data-frame="crt"][data-spot="iphone"] > figure { border-radius: 12px / 14px; }
 .frame[data-frame="crt"] > figure::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: inherit;
   background: radial-gradient(ellipse at 30% 12%, rgba(255, 255, 255, 0.07), transparent 30%),
     repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px),
@@ -409,15 +399,10 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .frame-plate { position: absolute; left: 16px; bottom: 9px; font: 13px var(--mono); color: #5f7a64; letter-spacing: 0.04em; }
 .frame-led { position: absolute; right: 18px; bottom: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--text);
   box-shadow: 0 0 8px var(--text); }
-.frame[data-frame="crt"][data-spot="iphone"] .frame-plate { display: none; }
-.frame[data-frame="crt"][data-spot="iphone"] .frame-led { right: 50%; margin-right: -2px; bottom: 6px; width: 4px; height: 4px; }
 
 /* E · a camera viewfinder */
 .frame[data-frame="finder"] { padding: 2em 1.3em; }
 .frame[data-frame="finder"] > figure { border-radius: 26px; }
-.frame[data-frame="finder"][data-spot="ipad"] > figure { border-radius: 18px; }
-.frame[data-frame="finder"][data-spot="iphone"] { padding: 0.9em 0.7em; }
-.frame[data-frame="finder"][data-spot="iphone"] > figure { border-radius: 16px; }
 .fv { position: absolute; width: 1.4em; height: 1.4em; border: 0 solid var(--text); }
 .fv-a { left: 0; top: 0; border-width: 2px 0 0 2px; } .fv-b { right: 0; top: 0; border-width: 2px 2px 0 0; }
 .fv-c { left: 0; bottom: 0; border-width: 0 0 2px 2px; } .fv-d { right: 0; bottom: 0; border-width: 0 2px 2px 0; }
@@ -426,14 +411,10 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .fv-live { color: var(--text); }
 .fv-live::before { content: "● "; animation: fv-blink 2.4s steps(1) infinite; }
 @keyframes fv-blink { 50% { opacity: 0.2; } }
-.frame[data-frame="finder"][data-spot="iphone"] .fv-read { display: none; }
 
 /* G · a point of light tracing the edge */
 .frame[data-frame="trace"] { padding: 8px; }
-.frame[data-frame="trace"][data-spot="iphone"] { padding: 4px; }
 .frame[data-frame="trace"] > figure { border-radius: 28px; }
-.frame[data-frame="trace"][data-spot="ipad"] > figure { border-radius: 18px; }
-.frame[data-frame="trace"][data-spot="iphone"] > figure { border-radius: 16px; background: #000; }
 .trace { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .trace rect { fill: none; }
 .trace .rail { stroke: var(--line); stroke-width: 1.5; }

@@ -32,6 +32,7 @@
 <script src="/themes.js" defer></script>
 <script src="/frames.js" defer></script>
 <script src="/screens.js" defer></script>
+<script src="/textphone.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -61,19 +62,51 @@
       <script src="/headline.js"></script>
       <p class="tagline">Your Mac on your iPhone and iPad.</p>
     </div>
-    <div class="devices">
-      <figure class="device ipad">
-        <img src="/img/screens/ipad-session.jpg" width="900" height="1200" decoding="async" fetchpriority="high" alt="Dumb Terminal on iPad: a Mac’s desktop fills the top of the screen, with a large trackpad below it.">
-      </figure>
-      <figure class="device iphone">
-        <img src="/img/screens/session.jpg" width="540" height="1174" decoding="async" alt="Dumb Terminal on iPhone: the same Mac desktop above a trackpad.">
-      </figure>
-      <!-- When an open iPhone Duo screenshot exists, save it as /img/screens/duo-session.jpg and add:
-      <figure class="device duo">
-        <img src="/img/screens/duo-session.jpg" width="WIDTH" height="HEIGHT" decoding="async" alt="Dumb Terminal on an open iPhone Duo: the Mac desktop above a keyboard and trackpad, like a small laptop.">
-      </figure>
-      -->
-    </div>
+    <!-- The app on an iPhone, drawn in text: the Mac's screen in characters above the trackpad. textphone.js moves a
+         fingertip on the trackpad and the pointer on the Mac. Without JavaScript or with Reduce Motion it stays still. -->
+    <figure class="devices textphone" role="img" aria-label="Dumb Terminal on iPhone, drawn in green text: a Mac’s desktop at the top of the screen, and a trackpad below where a fingertip moves the Mac’s pointer.">
+      <pre aria-hidden="true" data-art="3,17" data-pad="21,19"><i>╭</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>╮</i>
+<i>│</i>                         ( <i>●</i> )                          <i>│</i>
+<i>│</i>                                                        <i>│</i>
+<i>│</i>                                                    ..  <i>│</i>
+<i>│</i>   .::::::..........------:-----.                       <i>│</i>
+<i>│</i>   :#+-%:@-@:@:@-@:@:+:@:@:@-#-%:    ..............     <i>│</i>
+<i>│</i>   :*=-%:#-@-@-@:@:@:#:%-+-@-@-@:...................... <i>│</i>
+<i>│</i>   :+=-@:@:@:@:+:=:+:%:+:+:@:@:%:.....::::::::::::..... <i>│</i>
+<i>│</i>   -*+-@-#-@:+-@-@-@-*-@:@:*:+:@:..::::::::::::::::::.. <i>│</i>
+<i>│</i>   :+=-#-@-#-@-@:@:@:@:+:%:@-@:=:::::::::-------::::::: <i>│</i>
+<i>│</i>   :-=-%:=:%:@-@-@:%:=-@:#:-:%:#:::::--------------:::: <i>│</i>
+<i>│</i>   :-=-=--:=:=-=:=:=:::=:---:=:=::::----=========----:: <i>│</i>
+<i>│</i>   :-=-::::::::::::::::::::::::::::---==+==+++=++++==-: <i>│</i>
+<i>│</i>   :------:::::::::::::::::::::::::--=+**++##*+*****+-: <i>│</i>
+<i>│</i>                  ... .........::::-+++**++#*+++****+-: <i>│</i>
+<i>│</i>                         ......::::-+==+*==*+==+***+=-: <i>│</i>
+<i>│</i>                          .....:::::=+=++--=++==++++=:: <i>│</i>
+<i>│</i>                           .......::::::::::--------::: <i>│</i>
+<i>│</i>                             ........:::::::::::::::... <i>│</i>
+<i>│</i>   .....    . ....: =++=====.++=+*+=................... <i>│</i>
+<i>│</i>                                                        <i>│</i>
+<i>│</i> <i>┌</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┐</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                      (  ^  )                       <i>┆</i> <i>│</i>
+<i>│</i> <i>┆</i>                                                    <i>┆</i> <i>│</i>
+<i>│</i> <i>└</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┄</i><i>┘</i> <i>│</i>
+<i>╰</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>─</i><i>╯</i></pre>
+    </figure>
     <div class="hero-more">
       <p class="sub">Dumb Terminal uses the Screen Sharing already built into macOS. Turn it on once, tap your Mac, and use it with a trackpad, touch or a keyboard. Free on your own network, forever.</p>
       <p class="actions">
