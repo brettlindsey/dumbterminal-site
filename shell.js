@@ -82,6 +82,7 @@
     line.textContent = text;
     s.log.appendChild(line);
     s.log.scrollTop = s.log.scrollHeight;
+    return line;
   };
 
   var buildPanel = function () {
@@ -214,14 +215,196 @@
     say('studio      home   ready\nmacmini     home   asleep\nmacbook     away   via tailscale');
   });
   reg(['cat'], function (cmd) {
-    if (cmd.indexOf('secret') > -1) {
-      say('1. close a foldable.\n2. poke the clock.\n3. remember the code from old games.\n4. some channels only show static. wait.');
-      say('that is all we will say.', 'dim');
-    } else if (cmd.indexOf('pitch') > -1) say('Nothing to install on your Mac. Your Mac on your iPhone and iPad.');
+    if (cmd.indexOf('secret') > -1) printSecrets();
+    else if (cmd.indexOf('pitch') > -1) {
+      // Today's headline (it changes each visit), then the line under it.
+      // toy.js may have split the headline into glowing letters; its screen-reader copy holds the plain text.
+      var h1 = document.querySelector('.hero h1');
+      var plain = h1 && (h1.querySelector('.sr-only') || h1);
+      var tag = document.querySelector('.hero .tagline');
+      say((plain ? plain.textContent.replace(/\u00a0/g, ' ').trim() + ' ' : '') + (tag ? tag.textContent : ''));
+    }
     // The hunt: the app's mail says "try 0x2a online". The word is in the 4th App Store picture, in Morse.
     else if (cmd === 'cat 0x2a' || cmd === 'cat 42') { say('# the 4th picture.\n# read the lines.'); say('(on the app store. then tell the app.)', 'dim'); }
     else say('cat: ' + cmd.slice(4) + ': no such file');
   });
+  // ---- secrets.txt (owner's pick 2026-11-26, "A · Bad sectors"): every hidden thing in the app and on this page.
+  // Four lines read; the rest have rotted. fsck, degauss, plain sudo and fsck -y bring them back. The last line is shy
+  // and comes out for a word the app gives once its own copy is fixed (and the app's for the word this page gives).
+  // The app has the same file and replies (SecretsFile.swift): keep secretLines in step with SecretsFile.lines.
+  // Progress is kept in this browser only. ----
+  var secretLines = [
+    "shake your phone mid-session. your mac waves back.",
+    "at 4:04, home can't find itself.",
+    "site: poke the clock.",
+    "site: remember the code from old games.",
+    "pinch open the greeting. keep going.",
+    "on home, hold the phone to your ear. 300 baud.",
+    "phone face down. the tube sleeps.",
+    "take a screenshot. we notice.",
+    "leave a session alone for 3 minutes. watch the corners.",
+    "stay 10 minutes, then leave. look back.",
+    "fri 15 jan 2027, 08:00 utc. be awake.",
+    "two phones, one wi-fi, both on home.",
+    "leave mid-session. look at the island.",
+    "0x2a. the 4th picture. read the lines.",
+    "during setup, the pretend mac's trash is full.",
+    "during setup, tap a blinking cursor.",
+    "during setup, tap the ttys number. again. again.",
+    "don't touch home for 54 seconds.",
+    "two hours in one session. the screen remembers.",
+    "end a session in every colour. then swipe like it's 1986.",
+    "close a foldable. the outside has games.",
+    "tap the version number five times.",
+    "say no to the local network. we won't take it well.",
+    "tap the greeting three times.",
+    "the last line of settings is someone.",
+    "some words misfire. watch long enough.",
+    "site: some channels only show static. wait.",
+    "site: tap the logo five times. bring an umbrella.",
+    "site: type life. then type it again.",
+    "site: type cursor, with a mouse.",
+    "plain sudo works. fancy sudo doesn't.",
+    "site: some words repaint the whole page.",
+    "site: tune the tv.",
+    "site: type exit. come back.",
+    "you fixed both ends. no prize. just this line."
+  ];
+  var OPEN = 4, DEG = 8, SHY = secretLines.length - 1, APP_WORD = 'coax', SITE_WORD = 'psst';
+  var CHECKED = 1, DEGAUSSED = 2, FIXED = 4, SHY_OUT = 8;
+  var GLYPHS = '▒░▓#%&@$*';
+  var progress = parseInt(DT.get('dt-secrets', '0'), 10) || 0;
+  var rotten = [];      // printed lines still broken: { el, i }
+  var flicker = null;
+  var mark = function (bit) { progress |= bit; DT.set('dt-secrets', String(progress)); };
+  var has = function (bit) { return (progress & bit) === bit; };
+  var isRoot = function () { return DT.prompt() === '#'; };
+  var readable = function (i) {
+    return i < OPEN || (has(DEGAUSSED) && i < OPEN + DEG) || (has(FIXED) && i < SHY) || (has(SHY_OUT) && i === SHY);
+  };
+  var unreadable = function () { return secretLines.filter(function (s, i) { return !readable(i); }).length; };
+  var num = function (i) { return DT.pad(i + 1) + '  '; };
+  var glyph = function () { return GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length)); };
+  var rot = function (i) {
+    return secretLines[i].split('').map(function (c) { return /[a-z0-9]/i.test(c) && Math.random() < 0.55 ? glyph() : c; }).join('');
+  };
+  var footer = function () {
+    var n = unreadable();
+    if (n === 1) say("# 1 line left. it isn't broken. it's shy.", 'dim');
+    else if (n > 1) { say('# ' + n + ' lines unreadable. bad sectors.', 'dim'); say('# files this old need a check-up.', 'dim'); }
+  };
+  // The rot flickers: now and then a letter shows through or sinks back.
+  var startFlicker = function () {
+    if (flicker || still) return;
+    flicker = setInterval(function () {
+      rotten = rotten.filter(function (r) { return document.contains(r.el); });
+      if (!rotten.length) { clearInterval(flicker); flicker = null; return; }
+      if (document.hidden) return;
+      rotten.forEach(function (r) {
+        if (Math.random() > 0.3) return;
+        var line = secretLines[r.i], k = Math.floor(Math.random() * line.length);
+        if (!/[a-z0-9]/i.test(line.charAt(k))) return;
+        var t = r.el.textContent.split(''), at = num(r.i).length + k;
+        t[at] = Math.random() < 0.5 ? line.charAt(k) : glyph();
+        r.el.textContent = t.join('');
+      });
+    }, 220);
+  };
+  var printSecrets = function () {
+    secretLines.forEach(function (s, i) {
+      var ok = readable(i);
+      var el = say(num(i) + (ok ? s : rot(i)), ok ? '' : 'rot');
+      if (!ok && el) rotten.push({ el: el, i: i });
+    });
+    footer();
+    startFlicker();
+  };
+  // Lines that came back type themselves back in place, left to right.
+  var heal = function (list) {
+    var order = 0;
+    rotten = rotten.filter(function (r) {
+      if (list.indexOf(r.i) < 0) return true;
+      var el = r.el, fin = num(r.i) + secretLines[r.i], from = el.textContent;
+      el.className = 'fresh';
+      var start = Date.now() + order++ * 40;
+      var step = function () {
+        var p = still ? 1 : Math.max(0, Math.min(1, (Date.now() - start) / 450));
+        var cut = Math.floor(p * fin.length);
+        el.textContent = fin.slice(0, cut) + from.slice(cut);
+        if (p < 1) requestAnimationFrame(step);
+        else setTimeout(function () { el.className = ''; }, 900);
+      };
+      step();
+      return false;
+    });
+  };
+  var range = function (from, to) { var a = []; for (var i = from; i < to; i++) a.push(i); return a; };
+  // On the page's content, not body: a transform on body would move the fixed shell panel with it.
+  var degaussPage = function () {
+    var tube = document.querySelector('main');
+    if (still || !tube) return;
+    tube.classList.remove('degauss');
+    void tube.offsetWidth;
+    tube.classList.add('degauss');
+    setTimeout(function () { tube.classList.remove('degauss'); }, 950);
+  };
+  reg(['fsck'], function (cmd) {
+    var c = cmd.replace(/["']/g, '');
+    var plain = c === 'fsck' || c === 'fsck secrets.txt';
+    var yes = ['fsck -y', 'fsck -y secrets.txt', 'fsck secrets.txt -y', 'fsck -fy secrets.txt', 'fsck -yf secrets.txt'].indexOf(c) > -1;
+    var n = unreadable();
+    if (plain) {
+      if (!has(DEGAUSSED)) {
+        mark(CHECKED);
+        say('** checking secrets.txt\n** ' + n + " bad sectors found. cause: magnetism.\n** the tube's own, or a fridge magnet. we're not judging.");
+        say('# old tubes had a button for this. it went thunk.', 'dim');
+      } else if (!has(FIXED)) {
+        say('** ' + n + ' bad sectors left. the deep kind, in swap.');
+        say('# swap belongs to root. and fsck can be told to just say yes.', 'dim');
+      } else say(n ? '** 0 bad sectors. 1 shy line. not a disk problem.' : '** 0 bad sectors. nothing left to fix.');
+      return;
+    }
+    if (!yes) { say('fsck: ' + c.slice(5) + ': not a disk. the broken one is secrets.txt.', 'err'); return; }
+    if (!isRoot()) { say('fsck: -y fixes things without asking. only root gets to be that confident.', 'err'); return; }
+    if (!has(DEGAUSSED)) { say("fsck: sectors won't hold while the tube's still magnetised. fix the picture first.", 'err'); return; }
+    if (has(FIXED)) { say('fsck: nothing left to say yes to.'); return; }
+    var healed = range(OPEN, SHY).filter(function (i) { return !readable(i); });
+    mark(CHECKED | FIXED);
+    say('fix sector 0x0C? y\nfix sector 0x0D? y\nfix sector 0x0E? y y y y y y y y y y y y y y y y y y y');
+    say("you're very agreeable.", 'dim');
+    heal(healed);
+    say(healed.length + ' lines fixed. line ' + DT.pad(SHY + 1) + " isn't broken. it's shy.");
+    say('# it comes out for a word. the app has the word.', 'dim');
+    if (!has(SHY_OUT)) say("# and the app's own line " + DT.pad(SHY + 1) + ' comes out for: ' + APP_WORD, 'dim');
+  });
+  reg(['degauss'], function () {
+    if (!has(CHECKED)) { say('degauss: of what? check the disk first.', 'err'); return; }
+    if (has(DEGAUSSED)) { say('already degaussed. any more and the screen goes purple.'); return; }
+    mark(DEGAUSSED);
+    degaussPage();
+    say('*thunk*');
+    heal(range(OPEN, OPEN + DEG));
+    say(DEG + ' lines came back. ' + unreadable() + ' are stuck deeper, in swap.');
+    say('# swap belongs to root.', 'dim');
+  });
+  reg([SITE_WORD], function () {
+    if (has(SHY_OUT)) { say("it's already out. it waves, a bit."); return; }
+    if (!has(FIXED)) { say('…line ' + DT.pad(SHY + 1) + " won't come out while the others are still broken.", 'dim'); return; }
+    mark(SHY_OUT);
+    heal([SHY]);
+    say('…ok. line ' + DT.pad(SHY + 1) + ' comes out.');
+  });
+  reg([APP_WORD], function () { say(APP_WORD + ': that word is for the app.', 'dim'); });
+  reg(['hint'], function () {
+    say(!has(CHECKED) ? '# disks get check-ups. fsck.'
+      : !has(DEGAUSSED) ? '# old tubes had a button for this. it went thunk.'
+      : !has(FIXED) ? (isRoot() ? '# fsck again, and say yes to everything. -y' : '# swap belongs to root.')
+      : !has(SHY_OUT) ? '# the shy one wants a word. the app has it.'
+      : "# all of them. there's nothing left to find in here.", 'dim');
+  });
+  reg(['thunk'], function () { say("close. the button's called degauss."); });
+  reg(['magnet', 'magnets'], function () { say('put the magnet down.'); });
+
   reg(['whoami'], function () { say(DT.prompt() === '#' ? 'root' : 'guest'); });
   reg(['date'], function () { say(new Date().toString()); });
   reg(['clear', 'cls'], function () { if (active) active.log.textContent = ''; });
@@ -241,7 +424,7 @@
   reg(['ping'], function () { say('64 bytes from your mac: icmp_seq=0 time=3.1 ms\n(it misses you)'); });
   reg(['vim', 'vi', 'nano', 'emacs'], function () { say('you are now stuck in an editor. type :q to escape.'); });
   reg([':q', ':wq', ':q!'], function () { say('freedom.'); });
-  reg(['rm'], function () { say('nice try.'); });
+  reg(['rm'], function (cmd) { say(cmd.indexOf('secret') > -1 ? 'and lose ' + secretLines.length + ' secrets? bold. no.' : 'nice try.'); });
   reg(['man'], function () { say('see man dumbterminal, further down the page.'); });
   reg(['hello', 'hi', 'hey'], function () { say('hi. try help.'); });
   reg(['history'], function () { say(history.map(function (h, i) { return (i + 1) + '  ' + h; }).join('\n')); });

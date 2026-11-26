@@ -40,7 +40,9 @@
         [DT.prompt() + ' echo "$(cat pitch.txt)"', 'hi']
       ];
     }
-    return [
+    // When the headline itself is the "Last login" one, the boot leaves its own out so the two don't repeat.
+    var h1 = document.querySelector('.hero h1');
+    var lines = [
       ['Last login: ' + stamp + ' on ttys-web', ''],
       [DT.prompt() + ' ls ~/macs', 'hi'],
       ['studio      home   ready', ''],
@@ -48,6 +50,7 @@
       ['macbook     away   via tailscale', ''],
       [DT.prompt() + ' echo "$(cat pitch.txt)"', 'hi']
     ];
+    return h1 && /^Last login/.test(h1.textContent) ? lines.slice(1) : lines;
   };
   var drawAll = function (lines) {
     boot.textContent = '';
@@ -162,6 +165,28 @@
   };
   tickClock();
   setInterval(tickClock, 15000);
+
+  // ---- The widgets keep time like the real ones: each "used … ago" counts on from when the page opened, in the
+  // app's words ("used 11 min. ago"), and the Prompt widget's % turns to # with root. ----
+  var used = document.querySelectorAll('[data-used]');
+  var ps1 = document.querySelectorAll('[data-ps1]');
+  var ago = function (secs) {
+    var mins = Math.floor(secs / 60);
+    if (mins < 60) return mins + ' min. ago';
+    var hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + ' hr. ago';
+    var days = Math.floor(hours / 24);
+    return days + (days === 1 ? ' day ago' : ' days ago');
+  };
+  var tickWidgets = function () {
+    var gone = (Date.now() - started) / 1000;
+    used.forEach(function (el) { el.textContent = 'used ' + ago(Number(el.getAttribute('data-used')) + gone); });
+    ps1.forEach(function (el) { el.textContent = DT.prompt(); });
+  };
+  if (used.length || ps1.length) {
+    tickWidgets();
+    setInterval(tickWidgets, 15000);
+  }
 
   // ---- Now and then (every 1 to 3 minutes), a bright line sweeps down the screen, like a tube refreshing. ----
   if (!DT.still()) {

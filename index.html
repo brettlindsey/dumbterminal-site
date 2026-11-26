@@ -30,6 +30,7 @@
 <script src="/shell.js" defer></script>
 <script src="/arcade.js" defer></script>
 <script src="/themes.js" defer></script>
+<script src="/frames.js" defer></script>
 <script src="/screens.js" defer></script>
 </head>
 <body>
@@ -57,6 +58,7 @@
     <div class="hero-copy">
       <pre class="boot" aria-hidden="true"></pre>
       <h1>Nothing to install on your&nbsp;Mac.<button class="cursor" type="button" data-shell aria-label="Open the command line"></button></h1>
+      <script src="/headline.js"></script>
       <p class="tagline">Your Mac on your iPhone and iPad.</p>
     </div>
     <div class="devices">
@@ -108,10 +110,10 @@
     <div class="split">
       <div class="term">
         <p class="dim">% open ~/screens/home.png</p>
-        <p data-decrypt-status>home.png · decrypted</p>
+        <p data-intro-status>home.png · ready</p>
         <p class="dim">Every Mac on your Wi-Fi shows up by name. Tap one and you’re in.</p>
       </div>
-      <figure class="phone" data-decrypt>
+      <figure class="phone" data-intro>
         <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Dumb Terminal’s home screen: “good evening”, three Macs nearby, a line to resume the Studio Mac, and two more Macs listed under ~/macs/away.">
       </figure>
     </div>
@@ -249,6 +251,48 @@
       <div class="feature">
         <h3>On the big screen</h3>
         <p>Connect a TV or monitor: your Mac fills it, and your device becomes the trackpad.</p>
+      </div>
+    </div>
+    <!-- The app's home screen widgets, drawn in HTML from DumbTerminalWidgets.swift (Last Mac medium, Prompt small,
+         Your Macs small) with the app's own Mac drawings. They take the site's colours, as the real ones take the
+         app's theme. site.js keeps each "used … ago" moving. -->
+    <div class="split widget-split">
+      <div class="term">
+        <p class="dim">% ls ~/Library/Widgets</p>
+        <p>last-mac &nbsp;prompt &nbsp;your-macs</p>
+        <p class="dim">Your Macs on your Home Screen and Lock Screen, in the same colours as the app. Choose which Macs each one shows, then tap one and you’re in.</p>
+      </div>
+      <div class="widgets" role="group" aria-label="Dumb Terminal’s widgets on a Home Screen">
+        <figure class="wg-slot wide">
+          <div class="widget last-mac" role="img" aria-label="Last Mac widget: Studio Mac, used 10 minutes ago.">
+            <svg class="mac-art big" viewBox="0 0 100 100" aria-hidden="true"><rect class="o" x="14" y="30" width="72" height="36" rx="7"/><path d="M20 68h60l-4 5H24z"/><rect x="24" y="50" width="3" height="9" rx="1.5"/><rect x="31" y="50" width="3" height="9" rx="1.5"/><rect x="40" y="54" width="16" height="2.6" rx="1.3"/></svg>
+            <div aria-hidden="true">
+              <p class="wg-name lg">Studio Mac<span class="blk">█</span></p>
+              <p class="wg-dim sub" data-used="600">used 10 min. ago</p>
+            </div>
+          </div>
+          <figcaption>Last Mac</figcaption>
+        </figure>
+        <figure class="wg-slot">
+          <div class="widget prompt" role="img" aria-label="Prompt widget: open MacBook Pro, used 2 hours ago.">
+            <p class="wg-dim cap" data-used="7200" aria-hidden="true">used 2 hr. ago</p>
+            <div aria-hidden="true">
+              <p class="wg-dim sub"><span data-ps1>%</span> open</p>
+              <p class="wg-name">MacBook Pro<span class="blk">█</span></p>
+            </div>
+          </div>
+          <figcaption>Prompt</figcaption>
+        </figure>
+        <figure class="wg-slot">
+          <div class="widget your-macs" role="img" aria-label="Your Macs widget: Mac mini, used 3 days ago.">
+            <svg class="mac-art" viewBox="0 0 100 100" aria-hidden="true"><rect class="o" x="10" y="36" width="80" height="28" rx="7"/><path d="M17 66h66l-4 5H21z"/><rect x="24" y="45" width="3" height="10" rx="1.5"/><rect x="32" y="45" width="3" height="10" rx="1.5"/><circle cx="72" cy="50" r="2.4"/></svg>
+            <div aria-hidden="true">
+              <p class="wg-name">Mac mini</p>
+              <p class="cap faint" data-used="259200">used 3 days ago</p>
+            </div>
+          </div>
+          <figcaption>Your Macs</figcaption>
+        </figure>
       </div>
     </div>
     <p class="eggs">A few things in the app are hidden. We won’t say where.</p>

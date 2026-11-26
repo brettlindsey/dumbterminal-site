@@ -97,6 +97,10 @@ img { max-width: 100%; display: block; }
 .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; grid-template-areas: "copy devices" "more devices";
         grid-template-rows: auto 1fr; column-gap: 2.5rem; align-items: end; padding-top: 2.5rem; padding-bottom: 3rem; }
 .hero-copy { grid-area: copy; }
+/* headline.js swaps the headline before it is drawn. Until it has, keep the old one out of sight, but show it after
+   a second regardless, in case that script never runs. */
+html.js:not(.headline) .hero h1 { visibility: hidden; animation: headline-late 0s 1s forwards; }
+@keyframes headline-late { to { visibility: visible; } }
 .hero-more { grid-area: more; align-self: start; position: relative; z-index: 1; } /* above the devices' shadow */
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; grid-template-areas: "copy" "devices" "more"; grid-template-rows: none; padding-top: 1rem; }
@@ -240,6 +244,8 @@ img { max-width: 100%; display: block; }
 .shell-log { max-height: 16rem; overflow-y: auto; padding: 0.6rem 0.8rem 0; white-space: pre-wrap; color: var(--text); }
 .shell-log .dim, .shell-log .echo { color: var(--dim); }
 .shell-log .err { color: var(--error); }
+.shell-log .rot { color: var(--dim); }
+.shell-log .fresh { color: var(--bright); text-shadow: 0 0 10px var(--glow); }
 .shell-line { display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 0.8rem 0.7rem; color: var(--bright); }
 .shell-line input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--bright); font: inherit; font-size: 16px; caret-color: var(--text); }
 .shell-line input:focus { outline: none; }
@@ -309,7 +315,7 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 @keyframes tube-line { 0% { opacity: 0; transform: scaleX(1); } 40% { opacity: 1; transform: scaleX(1); } 100% { opacity: 1; transform: scaleX(0.01); } }
 @keyframes tube-light { 0% { opacity: 1; clip-path: inset(49.5% 0 49.5% 0); } 100% { opacity: 0; clip-path: inset(0 0 0 0); } }
 
-/* ---- Screenshots: a phone frame, the decrypt on the home screen, the slow modem, the channel-flip TV ---- */
+/* ---- Screenshots: a phone frame, the home screen's arrival, the slow modem, the channel-flip TV ---- */
 .split { max-width: 50rem; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem 2.5rem; align-items: center; margin-top: 2.2rem; }
 @media (max-width: 640px) { .split { grid-template-columns: 1fr; justify-items: center; } .split .term { justify-self: stretch; } }
 .term p { font-family: var(--mono); font-size: 0.9rem; margin: 0 0 0.35rem; }
@@ -317,11 +323,120 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .phone { position: relative; margin: 0; width: clamp(200px, 62vw, 240px); aspect-ratio: 540 / 1174; border-radius: 32px; overflow: hidden;
          border: 3px solid var(--line); background: #000; box-shadow: 0 0 40px color-mix(in srgb, var(--text) 16%, transparent); }
 .phone img, .tv-screen img { width: 100%; height: 100%; object-fit: cover; }
-.scramble { position: absolute; inset: 0; margin: 0; padding: 6px 8px; background: var(--bg); color: var(--accent);
-            font: 11px/13px var(--mono); white-space: pre; overflow: hidden; }
-.scan { position: absolute; left: 0; right: 0; height: 2px; background: var(--text); box-shadow: 0 0 12px 3px var(--text); }
 .modem-cover { position: absolute; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(0deg, var(--bg) 0 3px, var(--panel) 3px 6px); }
 .modem-bar { position: absolute; left: 0; height: 4px; background: var(--accent); }
+
+/* The home screen's arrival (screens.js S1), one of three per visit. Nothing flickers; each takes about a second. */
+.intro-text { position: absolute; inset: 0; z-index: 1; margin: 0; padding: 14px 12px; font: 13px/1.5 var(--mono); color: var(--text);
+  white-space: pre-wrap; pointer-events: none; opacity: 0; }
+.waiting img { opacity: 0; }
+.intro-warm.playing img { animation: warm-up 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes warm-up {
+  0% { opacity: 1; transform: scale(0.55, 0.004); filter: brightness(3); }
+  30% { transform: scale(1, 0.004); filter: brightness(3); }
+  75% { transform: scale(1, 1); filter: brightness(1.6); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+.intro-focus .intro-text { opacity: 1; }
+.intro-focus.playing img { animation: focus-in 1.6s ease-out both; }
+.intro-focus.playing .intro-text { animation: focus-text 1.6s ease-out both; }
+@keyframes focus-in { 0% { opacity: 0.25; filter: blur(9px); } 100% { opacity: 1; filter: none; } }
+@keyframes focus-text { 0%, 30% { opacity: 1; } 100% { opacity: 0; } }
+.intro-login .intro-text { opacity: 1; transition: opacity 0.5s; }
+.intro-login img { transition: opacity 0.5s; }
+.intro-login.waiting img, .intro-login:not(.playing) img { opacity: 0; }
+.intro-login.playing .intro-text { opacity: 0; }
+
+/* ---- Frames (frames.js): one of five per visit, worn by every device on the page. Without JavaScript the
+   screenshots keep the plain outline above. Sizes are in em, so the hero's small iPhone shrinks its frame. ---- */
+.frame { position: relative; font-size: 14px; }
+.frame > .device, .frame > .phone { border: 0; box-shadow: none; }
+.frame > .device { position: relative; }
+.frame > .device.iphone { position: relative; left: auto; bottom: auto; width: auto; }
+.frame[data-spot="iphone"] { position: absolute; left: 0; bottom: 0; width: 38%; font-size: 11px; background: var(--bg); border-radius: 12px; }
+.frame[data-spot="ipad"] { width: 100%; }
+
+/* A · terminal window */
+.frame[data-frame="win"] { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 30px color-mix(in srgb, var(--text) 12%, transparent); }
+.frame[data-frame="win"] > figure { margin: 0.45em; border-radius: 4px; }
+.frame-bar, .frame-foot { display: flex; justify-content: space-between; gap: 0.6em; padding: 0.4em 0.7em; font: 0.9em/1.3 var(--mono);
+  color: var(--dim); white-space: nowrap; overflow: hidden; }
+.frame-bar { border-bottom: 1px solid var(--line); }
+.frame-bar b { color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
+.frame-foot { border-top: 1px solid var(--line); }
+.frame[data-spot="iphone"] .frame-size, .frame[data-spot="iphone"] .frame-foot { display: none; }
+
+/* B · the device drawn in box characters */
+.frame[data-frame="ascii"] { padding: 1.1em 1.7ch; font-family: var(--mono); line-height: 1; color: var(--text);
+  text-shadow: 0 0 6px var(--glow); }
+.frame[data-frame="ascii"] > figure { border-radius: 0.85em; }
+.fa { position: absolute; overflow: hidden; white-space: pre; pointer-events: none; }
+.fa-t, .fa-b { left: 1ch; right: 1ch; height: 1em; }
+.fa-t { top: 0; } .fa-b { bottom: 0; }
+.fa-l, .fa-r { top: 1em; bottom: 1em; width: 1ch; }
+.fa-l { left: 0; } .fa-r { right: 0; }
+.fa-c { position: absolute; }
+.fa-tl { top: 0; left: 0; } .fa-tr { top: 0; right: 0; } .fa-bl { bottom: 0; left: 0; } .fa-br { bottom: 0; right: 0; }
+.fa-on { position: absolute; background: var(--bg); padding: 0 0.5ch; white-space: pre; }
+.fa-cam { top: 0; left: 50%; transform: translateX(-50%); }
+.fa-name { bottom: 0; left: 50%; transform: translateX(-50%); color: var(--dim); }
+.fa-key { width: 1ch; padding: 0; color: var(--bright); }
+.fa-k1 { left: 0; top: 17%; } .fa-k2 { left: 0; top: 25%; } .fa-k3 { left: 0; top: 32%; } .fa-k4 { right: 0; top: 24%; }
+.frame[data-spot="iphone"] .fa-name { display: none; }
+
+/* C · a phone-shaped tube */
+.frame[data-frame="crt"] { padding: 14px 12px 34px; border-radius: 30px; background: linear-gradient(165deg, #1d221e, #0b0d0b 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -2px 0 rgba(0, 0, 0, 0.6), 0 25px 50px rgba(0, 0, 0, 0.6),
+  0 0 30px color-mix(in srgb, var(--text) 10%, transparent); }
+.frame[data-frame="crt"][data-spot="ipad"] { padding: 16px 16px 34px; border-radius: 26px; }
+.frame[data-frame="crt"][data-spot="iphone"] { padding: 7px 6px 18px; border-radius: 18px; }
+.frame[data-frame="crt"] > figure { border-radius: 22px / 26px; box-shadow: inset 0 0 0 2px #050805; }
+.frame[data-frame="crt"][data-spot="ipad"] > figure { border-radius: 14px / 18px; }
+.frame[data-frame="crt"][data-spot="iphone"] > figure { border-radius: 12px / 14px; }
+.frame[data-frame="crt"] > figure::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(ellipse at 30% 12%, rgba(255, 255, 255, 0.07), transparent 30%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.65)); }
+.frame-plate { position: absolute; left: 16px; bottom: 9px; font: 13px var(--mono); color: #5f7a64; letter-spacing: 0.04em; }
+.frame-led { position: absolute; right: 18px; bottom: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--text);
+  box-shadow: 0 0 8px var(--text); }
+.frame[data-frame="crt"][data-spot="iphone"] .frame-plate { display: none; }
+.frame[data-frame="crt"][data-spot="iphone"] .frame-led { right: 50%; margin-right: -2px; bottom: 6px; width: 4px; height: 4px; }
+
+/* E · a camera viewfinder */
+.frame[data-frame="finder"] { padding: 2em 1.3em; }
+.frame[data-frame="finder"] > figure { border-radius: 26px; }
+.frame[data-frame="finder"][data-spot="ipad"] > figure { border-radius: 18px; }
+.frame[data-frame="finder"][data-spot="iphone"] { padding: 0.9em 0.7em; }
+.frame[data-frame="finder"][data-spot="iphone"] > figure { border-radius: 16px; }
+.fv { position: absolute; width: 1.4em; height: 1.4em; border: 0 solid var(--text); }
+.fv-a { left: 0; top: 0; border-width: 2px 0 0 2px; } .fv-b { right: 0; top: 0; border-width: 2px 2px 0 0; }
+.fv-c { left: 0; bottom: 0; border-width: 0 0 2px 2px; } .fv-d { right: 0; bottom: 0; border-width: 0 2px 2px 0; }
+.fv-read { position: absolute; left: 1.9em; right: 1.9em; display: flex; justify-content: space-between; font: 13px/1 var(--mono); color: var(--dim); }
+.fv-top { top: 0.45em; } .fv-bot { bottom: 0.45em; }
+.fv-live { color: var(--text); }
+.fv-live::before { content: "● "; animation: fv-blink 2.4s steps(1) infinite; }
+@keyframes fv-blink { 50% { opacity: 0.2; } }
+.frame[data-frame="finder"][data-spot="iphone"] .fv-read { display: none; }
+
+/* G · a point of light tracing the edge */
+.frame[data-frame="trace"] { padding: 8px; }
+.frame[data-frame="trace"][data-spot="iphone"] { padding: 4px; }
+.frame[data-frame="trace"] > figure { border-radius: 28px; }
+.frame[data-frame="trace"][data-spot="ipad"] > figure { border-radius: 18px; }
+.frame[data-frame="trace"][data-spot="iphone"] > figure { border-radius: 16px; background: #000; }
+.trace { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.trace rect { fill: none; }
+.trace .rail { stroke: var(--line); stroke-width: 1.5; }
+.trace .dot, .trace .tail { stroke-linecap: round; stroke-width: 2.5; }
+.trace .dot { stroke: var(--bright); stroke-dasharray: 1.2 98.8; animation: trace-dot 9s linear infinite; }
+.trace .tail { stroke: var(--text); opacity: 0.4; stroke-dasharray: 12 88; animation: trace-tail 9s linear infinite; }
+@keyframes trace-dot { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -100; } }
+@keyframes trace-tail { from { stroke-dashoffset: 10.8; } to { stroke-dashoffset: -89.2; } }
+@media (prefers-reduced-motion: reduce) {
+  .trace .dot, .trace .tail, .fv-live::before { animation: none; }
+}
 
 .tv-row { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem 2.5rem; align-items: center; margin-top: 2rem; }
 @media (max-width: 700px) { .tv-row { grid-template-columns: 1fr; justify-items: center; } .channels { justify-self: stretch; } }
@@ -366,6 +481,16 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
   100% { transform: translate(-2px, 1px); }
 }
 
+/* secrets.txt's degauss (shell.js): the tube wobbles and its colours swing. Never with Reduce Motion. */
+.degauss { animation: degauss 0.9s ease-out; }
+@keyframes degauss {
+  0% { transform: none; filter: none; }
+  15% { transform: skewX(3deg) scale(1.02); filter: hue-rotate(70deg) saturate(2); }
+  30% { transform: skewX(-2deg); filter: hue-rotate(-60deg); }
+  50% { transform: skewX(1deg) scale(0.995); filter: hue-rotate(30deg); }
+  100% { transform: none; filter: none; }
+}
+
 /* The occasional sweep down the screen (site.js). Never with Reduce Motion. */
 .sweep { position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 95; pointer-events: none;
   background: var(--bright); box-shadow: 0 0 10px 3px var(--text), 0 0 36px 10px color-mix(in srgb, var(--text) 45%, transparent);
@@ -376,3 +501,35 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 @media (prefers-reduced-motion: reduce) { .sweep { display: none; } }
 .foot-grid > * { min-width: 0; }
 .tail .shell-line input { width: 100%; }
+
+/* ---- The app's widgets on a Home Screen (index.html, #features). Sizes follow iOS: two small widgets and the gap
+   between them make one medium, 364 points across in all; --u is one of those points at the board's width. The
+   colours are the site's, which are the app's widget colours in dark mode, on pure black. ---- */
+.widget-split { margin-top: 2.6rem; }
+.widgets { container-type: inline-size; width: 22rem; max-width: 100%; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 1.4rem; padding: 1.4rem 1.25rem 1rem; border: 1px solid var(--line); border-radius: 30px;
+  background: radial-gradient(ellipse at 30% 0%, color-mix(in srgb, var(--text) 9%, var(--panel)), var(--panel) 70%); }
+.wg-slot { margin: 0; min-width: 0; }
+.wg-slot.wide { grid-column: 1 / -1; }
+.wg-slot figcaption { margin-top: 0.35rem; text-align: center; font: 0.72rem/1.2 var(--mono); color: var(--dim); }
+.widget { --u: calc(100cqw / 364); aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between;
+  padding: calc(16 * var(--u)); border-radius: calc(24 * var(--u)); background: #000; color: var(--text);
+  font-family: var(--mono); line-height: 1.2;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 10%, transparent), 0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 26px color-mix(in srgb, var(--text) 10%, transparent); }
+.widget p { margin: 0; white-space: nowrap; overflow: hidden; }
+.widget.last-mac { aspect-ratio: 364 / 170; flex-direction: row; align-items: center; justify-content: flex-start; gap: calc(18 * var(--u)); }
+.widget.last-mac > div { min-width: 0; display: flex; flex-direction: column; gap: calc(4 * var(--u)); }
+.widget.prompt > div, .widget.your-macs > div { display: flex; flex-direction: column; gap: calc(2 * var(--u)); }
+.mac-art { width: calc(52 * var(--u)); height: calc(52 * var(--u)); flex: none; color: var(--accent);
+  fill: currentColor; stroke: none; }
+.mac-art.big { width: calc(96 * var(--u)); height: calc(96 * var(--u)); }
+.mac-art .o { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.wg-name { font-size: calc(17 * var(--u)); font-weight: 700; text-shadow: 0 0 8px var(--glow); }
+.wg-name.lg { font-size: calc(22 * var(--u)); }
+.wg-dim { color: var(--dim); }
+.widget .sub { font-size: calc(15 * var(--u)); }
+.widget .cap { font-size: calc(12 * var(--u)); }
+.widget .faint { opacity: 0.85; }
+.widget .blk { animation: blink 1.06s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .widget .blk { animation: none; } }

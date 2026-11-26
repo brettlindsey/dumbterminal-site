@@ -1,90 +1,77 @@
-// Dumb Terminal's site, part 6: the app's screenshots, kept cryptic. The home screen arrives scrambled and decrypts
-// when you point at it (or after a moment in view); the Away screen downloads over a pretend modem; and a little TV
-// shows four channels of the app, with a fifth that is only static. Without JavaScript, or with Reduce Motion on,
-// every screenshot is simply shown.
+// Dumb Terminal's site, part 6: the app's screenshots. The home screen comes on calmly when you reach it (one of
+// three ways per visit); the Away screen downloads over a pretend modem; and a little TV shows four channels of the
+// app, with a fifth that is only static. Without JavaScript, or with Reduce Motion on, every screenshot is simply
+// shown. The frames around them are frames.js.
 (function () {
   'use strict';
   var DT = window.DT;
   if (!DT) return;
   var still = DT.still();
-  var fine = window.matchMedia('(pointer: fine)').matches;
 
-  // ---- S1 · Decrypt: scrambled characters cover the screenshot until a scan line wipes them away. ----
-  var fig = document.querySelector('[data-decrypt]');
-  var status = document.querySelector('[data-decrypt-status]');
+  // ---- S1 · Arrival: the home screen comes on once, calmly, when it scrolls into view. Each visit picks one of
+  // three: Warm up (a line of light opens into the screen, like a tube), Focus (soft and dim under "connecting",
+  // then sharp), or Log in (three lines type out, then the screen fades in). ----
+  var fig = document.querySelector('[data-intro]');
+  var status = document.querySelector('[data-intro-status]');
   if (fig && !still) {
-    var cover = document.createElement('pre');
-    cover.className = 'scramble';
-    cover.setAttribute('aria-hidden', 'true');
-    var scan = document.createElement('div');
-    scan.className = 'scan';
-    scan.setAttribute('aria-hidden', 'true');
-    fig.appendChild(cover);
-    fig.appendChild(scan);
-    var glyphs = '01<>/{}[]=+*%#ABCDEF$~';
-    var shown = 0;          // 0: all scrambled, 1: all decrypted
-    var running = null;
-    var waiting = null;
-    var noise = null;
-    var bar = function (p) {
-      var n = Math.round(p * 10);
-      return '[' + new Array(n + 1).join('#') + new Array(11 - n).join('·') + ']';
-    };
-    var paint = function () {
-      cover.style.clipPath = 'inset(' + (shown * 100) + '% 0 0 0)';
-      scan.style.top = (shown * 100) + '%';
-      scan.style.opacity = shown > 0 && shown < 1 ? '1' : '0';
+    var intros = ['warm', 'focus', 'login'];
+    var askedIntro = new URLSearchParams(location.search).get('intro');   // `?intro=focus`, as for frames
+    var lastIntro = DT.session('dt-intro');
+    var choices = intros.filter(function (n) { return n !== lastIntro; });
+    var intro = intros.indexOf(askedIntro) >= 0 ? askedIntro : choices[Math.floor(Math.random() * choices.length)];
+    DT.session('dt-intro', intro);
+    var shot = fig.querySelector('img');
+    var words = document.createElement('pre');
+    words.className = 'intro-text';
+    words.setAttribute('aria-hidden', 'true');
+    fig.appendChild(words);
+    fig.classList.add('intro-' + intro, 'waiting');
+    var tell = function (text, done) {
       if (!status) return;
-      if (shown >= 1) status.textContent = 'home.png · decrypted';
-      else if (shown > 0) status.textContent = 'decrypting home.png ' + bar(shown) + ' ' + Math.round(shown * 100) + '%';
-      else status.textContent = 'home.png · encrypted. ' + (fine ? 'point at it to decrypt.' : 'tap to decrypt.');
-    };
-    var scramble = function () {
-      var cols = Math.ceil(fig.clientWidth / 6.6) + 1;
-      var rows = Math.ceil(fig.clientHeight / 13) + 1;
-      var out = '';
-      for (var r = 0; r < rows; r++) {
-        for (var c = 0; c < cols; c++) out += glyphs.charAt(Math.floor(Math.random() * glyphs.length));
-        out += '\n';
+      status.textContent = text;
+      if (done) {
+        var b = document.createElement('b');
+        b.textContent = done;
+        status.appendChild(b);
       }
-      cover.textContent = out;
     };
-    var startNoise = function () { if (!noise) { scramble(); noise = setInterval(scramble, 140); } };
-    var stopNoise = function () { clearInterval(noise); noise = null; };
-    var decrypt = function () {
-      clearTimeout(waiting);
-      if (running || shown >= 1) return;
-      var from = shown;
-      var t0 = performance.now();
-      var step = function (now) {
-        shown = Math.min(1, from + (now - t0) / 1100);
-        paint();
-        if (shown < 1) running = requestAnimationFrame(step);
-        else { running = null; stopNoise(); }
-      };
-      running = requestAnimationFrame(step);
+    tell('home.png · waiting');
+    if (intro === 'focus') words.textContent = 'connecting to\nStudio Mac…';
+    var played = false;
+    var play = function () {
+      if (played) return;
+      played = true;
+      fig.classList.remove('waiting');
+      if (intro === 'warm') {
+        tell('warming up home.png…');
+        fig.classList.add('playing');
+        setTimeout(function () { tell('home.png · ', 'ready'); }, 1000);
+      } else if (intro === 'focus') {
+        tell('connecting to Studio Mac…');
+        fig.classList.add('playing');
+        setTimeout(function () { tell('home.png · ', 'connected'); }, 1600);
+      } else {
+        tell('logging in…');
+        var text = DT.prompt() + ' ssh studio-mac\npassword: ••••••\nconnected.';
+        var shown = 0;
+        var typing = setInterval(function () {
+          shown += 1;
+          words.textContent = text.slice(0, shown) + '▌';
+          if (shown < text.length) return;
+          clearInterval(typing);
+          setTimeout(function () { fig.classList.add('playing'); tell('home.png · ', 'ready'); }, 450);
+        }, 45);
+      }
     };
-    var rescramble = function () {
-      clearTimeout(waiting);
-      if (running) { cancelAnimationFrame(running); running = null; }
-      shown = 0;
-      paint();
-    };
-    fig.addEventListener('pointerenter', decrypt);
-    fig.addEventListener('click', decrypt);
-    // In view for a moment decrypts it anyway (phones, keyboards); scrolled away, it scrambles again.
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          startNoise();
-          waiting = setTimeout(decrypt, fine ? 2600 : 1400);
-        } else {
-          stopNoise();
-          rescramble();
-        }
-      });
-    }, { threshold: 0.6 }).observe(fig);
-    paint();
+    // A third in view is enough, so short screens (a phone on its side) still get there; pointing or tapping
+    // plays it too.
+    new IntersectionObserver(function (entries, observer) {
+      if (!entries[0].isIntersecting) return;
+      observer.disconnect();
+      play();
+    }, { threshold: 0.3 }).observe(fig);
+    fig.addEventListener('pointerenter', play);
+    fig.addEventListener('click', play);
   }
 
   // ---- S4 · Over a modem: the Away screen paints in band by band, with a byte counter. Once per visit. ----
