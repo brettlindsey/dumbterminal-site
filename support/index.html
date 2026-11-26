@@ -55,108 +55,26 @@
 
 <h2 id="setup">Set up your Mac</h2>
 <p>On the Mac, open System Settings, then General, then Sharing, and turn on Screen Sharing. Click the ⓘ next to it
-and make sure your user is allowed to connect. The same steps are in the app: open Settings and tap :help mac setup.</p>
+and make sure your user is allowed to connect.</p>
 
-<h2>A Mac mini with no monitor</h2>
-<p>Screen Sharing works on a Mac with no display attached, so a Mac mini on a shelf is fine. With no display, macOS
-chooses the screen size itself, and it may be smaller than you'd like. While connected, open System Settings, then
-Displays, on the Mac to pick another size. If you want a fixed size every time, a small HDMI "dummy" plug (sold as a
-headless display adapter) makes the Mac think a monitor is attached, and you choose its resolution in Displays.</p>
-
-<h2>No Wi-Fi? Use Personal Hotspot</h2>
-<p>Turn on Personal Hotspot on your iPhone, and on the Mac join the iPhone's network from the Wi-Fi menu. The Mac and
-iPhone are then on the same network. If the Mac doesn't appear in Dumb Terminal, add it with + by its address, which the
-Mac shows in System Settings, Wi-Fi, Details (it usually starts with 172.20.10). This counts as your own network, so
-Away Access isn't needed. An iPad can join an iPhone's hotspot the same way.</p>
-
-<h2>Dumb Terminal can't find or connect to my Mac</h2>
+<h2>Can't find or connect to your Mac</h2>
 <ul>
-<li>Check that the iPhone or iPad and the Mac are on the same Wi-Fi network.</li>
+<li>Put your iPhone or iPad and the Mac on the same Wi-Fi network.</li>
 <li>Allow Dumb Terminal to use the local network in iOS Settings, then Privacy &amp; Security, then Local Network.</li>
 <li>If a connection hangs, turn Screen Sharing off and on again on the Mac.</li>
-<li>Away from home, see Reach your Mac from anywhere below.</li>
 </ul>
 
-<h2>Reach your Mac from anywhere</h2>
-<p>Dumb Terminal reaches your Mac away from home over <a href="https://tailscale.com">Tailscale</a>, a separate app, free for personal use, that links
-your own devices privately.</p>
-<ol>
-<li>In Dumb Terminal, open Settings and tap set up on the away line (the same steps are at the end of :help mac setup). It walks you through the rest.</li>
-<li>Get the Tailscale app on your iPhone or iPad, sign in, and turn it on.</li>
-<li>Get Tailscale on your Mac (Dumb Terminal can send you the link) and sign in with the same account.</li>
-<li>At home, open each Mac in Dumb Terminal once. Dumb Terminal finds its Tailscale address by itself: there's nothing to type.</li>
-</ol>
-<p>Away from home, turn on Tailscale and tap your Mac. The first time, Dumb Terminal offers a free 7-day trial of Away
-Access. A Mac Dumb Terminal can't find by itself can still be added with + by its Tailscale name or 100.x.y.z address.</p>
-<p>Macs on your own network are always free. Away from home needs Away Access, which comes with Root Access: an optional
-one-time in-app purchase, with the price shown in the App Store before you buy. No subscription, no Dumb Terminal account. Restore Purchases is in Dumb
-Terminal: open Settings and tap the price on the root access line. In TestFlight beta builds Away Access is included.</p>
-<p>If a Mac away from home won't connect, check that Tailscale is connected on both devices (iOS runs one VPN at a
-time, so turn off any other VPN), and that the Mac is awake with Screen Sharing on.</p>
-<p>Tailscale is a separate service run by Tailscale Inc., with its own terms and privacy policy. For Tailscale account or
-sign-in problems, see <a href="https://tailscale.com/kb">Tailscale's help</a>.</p>
-<p>Tips for away from home:</p>
-<ul>
-<li>A sleeping Mac can't be reached over Tailscale. On the Mac, turn on Wake for network access in System Settings,
-Energy (on a laptop: Battery, then Options), or set it never to sleep while plugged in.</li>
-<li>Keep Tailscale running on the Mac and set it to open at login, so it is back after a restart.</li>
-<li>Turn Tailscale on in its app on your iPhone or iPad before you tap your Mac. Dumb Terminal reminds you if it's off.</li>
-<li>Wake-on-LAN only works on your own network, so wake the Mac before you leave if it tends to sleep.</li>
-</ul>
+<h2>Away from home</h2>
+<p>Dumb Terminal reaches your Mac away from home over <a href="https://tailscale.com">Tailscale</a>, a separate free app.
+In Dumb Terminal, open Settings and tap set up on the away line: it walks you through it. This needs Away Access,
+which comes with Root Access, a one-time in-app purchase with a free 7-day trial. Macs on your own network are always
+free. For Tailscale sign-in problems, see <a href="https://tailscale.com/kb">Tailscale's help</a>.</p>
 
-<h2>Your Macs on all your devices</h2>
-<p>Signed in to iCloud, the Macs you save in Dumb Terminal show up on your other iPhones and iPads too, through your own
-private iCloud. Passwords stay on the device where you saved them, so each device asks once.</p>
-
-<h2>Type, click and use shortcuts</h2>
-<p>Swipe up the small handle at the bottom of a session to bring up the keyboard. Tap the handle for the control deck:
-the keyboard, the pointer, Trackpad Only and gestures; the screen filter, the laptop layout and displays; Mac shortcuts
-such as Screenshot and Force Quit; and Lock Mac, Unlock Mac and Disconnect. Above the keyboard, tap ⌘ to see Copy,
-Paste, Undo and other shortcuts by name. On iPhone, clicks and drags tap back lightly, like a MacBook trackpad, and a few
-moments have their own feel, such as a Mac's screen arriving or a Mac waking. Turn these off on the haptics line in Dumb
-Terminal's Settings.</p>
-<p>Mac gestures work too: swipe three fingers left or right to switch Spaces, up for Mission Control and down for
-App Exposé, and four fingers left or right to switch apps. On iPad, turn off iPad's own four-finger gestures
-(Settings, Multitasking &amp; Gestures) to use four fingers in Dumb Terminal.</p>
-
-<p>Tap ⚡ in the row above the keyboard for one-tap Mac actions: Spotlight, Mission Control, App Exposé, Undo
-and Redo, plus shortcuts of your own. Add, delete and reorder yours in Dumb Terminal's Settings, on the shortcut keys line; they are
-kept on your device.</p>
-<p>On iPad, Apple Pencil points exactly where it touches: hover to move the Mac's pointer, tap to click, and draw
-to drag. A mouse, trackpad or keyboard connected to the iPad works as it would on a Mac, apart from shortcuts iPadOS
-keeps for itself, such as ⌘Tab and ⌘Space (use the ⚡ shortcuts or a four-finger swipe for those).</p>
-<p>To dictate, tap the microphone above the keyboard and speak. Your words appear as you talk; tap Send to type them
-into the Mac app in front (turn on ↩ to press Return after). Speech is recognized on your device and never sent
-anywhere.</p>
-
-<h2>Use a TV or monitor</h2>
-<p>Connect your iPhone or iPad to a display by cable or AirPlay while a session is open: your Mac's desktop fills
-the big screen and your device becomes the trackpad, with the keyboard a swipe away. Unplug it and the desktop comes
-back to your device.</p>
-
-<p>Sitting at the Mac already? Choose Trackpad Only from the session menu to use your device as a trackpad and
-keyboard without the picture. It saves battery, and the Mac sends a lighter picture until you show it again.</p>
-
-<h2>Widgets and Control Center</h2>
-<p>Add Dumb Terminal's widgets to your Home Screen or Lock Screen, or its Last Mac control to Control Center. Your Macs
-shows several Macs, Last Mac and Prompt feature the one you used last, and the control shows when you last used it.
-To choose which Macs a widget shows, press and hold it, then Edit Widget. A tap wakes the Mac if it's asleep and opens
-it.</p>
-
-<h2>Lock and unlock your Mac</h2>
-<p>Tap the handle at the bottom of a session, then Lock Mac or Unlock Mac. Lock Mac locks the screen. Unlock Mac types the password
-you connected with into the lock screen; it's there when you connected with your Mac's user name and password. With
-the keyboard up, Password above it does the same. Your Mac password stays in your iPhone or iPad's Keychain,
-encrypted by iOS, and is never synced or sent anywhere.</p>
-<p>If your Mac was locked when you connected, macOS locks it again when you disconnect, so it is never left open
-after you put your phone down.</p>
+<h2>Restore a purchase</h2>
+<p>Restore Purchases is in Dumb Terminal: open Settings and tap the price on the root access line.</p>
 
 <h2>Beta feedback</h2>
-<p>Testing a beta from TestFlight? Thank you. Send feedback from the TestFlight app: open Dumb Terminal there and tap Send
-Beta Feedback, or take a screenshot while using Dumb Terminal and tap Share Beta Feedback. You can also email
-<a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>. The build number is on the first line of Dumb Terminal's
-Settings.</p>
-
+<p>Testing a beta? Open Dumb Terminal in the TestFlight app and tap Send Beta Feedback.</p>
 </main>
 
 <footer class="foot">
