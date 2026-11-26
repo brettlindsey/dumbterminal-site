@@ -210,7 +210,7 @@
   });
   reg(['ls'], function (cmd) {
     if (cmd === 'ls' || cmd === 'ls ~' || cmd === 'ls ~/' || cmd === 'ls -la' || cmd === 'ls -a') { say('macs/   screens/   pitch.txt   secrets.txt'); return; }
-    if (cmd.indexOf('screen') > -1) { say('home.png   session.png   status.png   config.png   away.png'); return; }
+    if (cmd.indexOf('screen') > -1) { say('home.png   session.png   layouts.png   away.png'); return; }
     say('studio      home   ready\nmacmini     home   asleep\nmacbook     away   via tailscale');
   });
   reg(['cat'], function (cmd) {
@@ -218,6 +218,8 @@
       say('1. close a foldable.\n2. poke the clock.\n3. remember the code from old games.\n4. some channels only show static. wait.');
       say('that is all we will say.', 'dim');
     } else if (cmd.indexOf('pitch') > -1) say('Nothing to install on your Mac. Your Mac on your iPhone and iPad.');
+    // The hunt: the app's mail says "try 0x2a online". The word is in the 4th App Store picture, in Morse.
+    else if (cmd === 'cat 0x2a' || cmd === 'cat 42') { say('# the 4th picture.\n# read the lines.'); say('(on the app store. then tell the app.)', 'dim'); }
     else say('cat: ' + cmd.slice(4) + ': no such file');
   });
   reg(['whoami'], function () { say(DT.prompt() === '#' ? 'root' : 'guest'); });

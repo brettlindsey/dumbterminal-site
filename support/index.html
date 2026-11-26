@@ -34,7 +34,6 @@
 <header class="top wrap">
   <a class="brand" href="/"><img src="/img/icon.png" alt="" width="30" height="30"><span>~/dumbterminal</span></a>
   <nav class="nav-wide" aria-label="Site">
-    <a href="/releases/">./whats-new</a>
     <a href="/support/" aria-current="page">./support</a>
     <a href="/privacy/">./privacy</a>
     <a href="/terms/">./terms</a>
@@ -42,7 +41,6 @@
   <details class="menu">
     <summary>menu</summary>
     <nav class="nav" aria-label="Site menu">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/" aria-current="page">./support</a>
       <a href="/privacy/">./privacy</a>
       <a href="/terms/">./terms</a>
@@ -57,7 +55,7 @@
 
 <h2 id="setup">Set up your Mac</h2>
 <p>On the Mac, open System Settings, then General, then Sharing, and turn on Screen Sharing. Click the ⓘ next to it
-and make sure your user is allowed to connect. The same steps are in the app under Settings, Set Up Your Mac.</p>
+and make sure your user is allowed to connect. The same steps are in the app: open Settings and tap :help mac setup.</p>
 
 <h2>A Mac mini with no monitor</h2>
 <p>Screen Sharing works on a Mac with no display attached, so a Mac mini on a shelf is fine. With no display, macOS
@@ -80,11 +78,11 @@ Away Access isn't needed. An iPad can join an iPhone's hotspot the same way.</p>
 </ul>
 
 <h2>Reach your Mac from anywhere</h2>
-<p>Dumb Terminal reaches your Mac away from home over <a href="https://tailscale.com">Tailscale</a>, a free app that links
+<p>Dumb Terminal reaches your Mac away from home over <a href="https://tailscale.com">Tailscale</a>, a separate app, free for personal use, that links
 your own devices privately.</p>
 <ol>
-<li>In Dumb Terminal, open Settings, then Set Up Away From Home. It walks you through the rest.</li>
-<li>Get the free Tailscale app on your iPhone or iPad, sign in, and turn it on.</li>
+<li>In Dumb Terminal, open Settings and tap set up on the away line (the same steps are at the end of :help mac setup). It walks you through the rest.</li>
+<li>Get the Tailscale app on your iPhone or iPad, sign in, and turn it on.</li>
 <li>Get Tailscale on your Mac (Dumb Terminal can send you the link) and sign in with the same account.</li>
 <li>At home, open each Mac in Dumb Terminal once. Dumb Terminal finds its Tailscale address by itself: there's nothing to type.</li>
 </ol>
@@ -92,9 +90,11 @@ your own devices privately.</p>
 Access. A Mac Dumb Terminal can't find by itself can still be added with + by its Tailscale name or 100.x.y.z address.</p>
 <p>Macs on your own network are always free. Away from home needs Away Access, which comes with Root Access: an optional
 one-time in-app purchase, with the price shown in the App Store before you buy. No subscription, no Dumb Terminal account. Restore Purchases is in Dumb
-Terminal under Settings, Away From Home. In TestFlight beta builds Away Access is included.</p>
+Terminal: open Settings and tap the price on the root access line. In TestFlight beta builds Away Access is included.</p>
 <p>If a Mac away from home won't connect, check that Tailscale is connected on both devices (iOS runs one VPN at a
 time, so turn off any other VPN), and that the Mac is awake with Screen Sharing on.</p>
+<p>Tailscale is a separate service run by Tailscale Inc., with its own terms and privacy policy. For Tailscale account or
+sign-in problems, see <a href="https://tailscale.com/kb">Tailscale's help</a>.</p>
 <p>Tips for away from home:</p>
 <ul>
 <li>A sleeping Mac can't be reached over Tailscale. On the Mac, turn on Wake for network access in System Settings,
@@ -109,16 +109,18 @@ Energy (on a laptop: Battery, then Options), or set it never to sleep while plug
 private iCloud. Passwords stay on the device where you saved them, so each device asks once.</p>
 
 <h2>Type, click and use shortcuts</h2>
-<p>Swipe up the small handle at the bottom of a session to bring up the keyboard. Tap the handle for the menu bar:
-the keyboard, shortcuts such as Screenshot and Force Quit, displays, and Disconnect. Above the keyboard, tap ⌘ to see Copy,
-Paste, Undo and other shortcuts by name. On iPhone, clicks and drags tap back lightly, like a MacBook trackpad; turn
-this off with Haptic Clicks in Dumb Terminal's Settings.</p>
+<p>Swipe up the small handle at the bottom of a session to bring up the keyboard. Tap the handle for the control deck:
+the keyboard, the pointer, Trackpad Only and gestures; the screen filter, the laptop layout and displays; Mac shortcuts
+such as Screenshot and Force Quit; and Lock Mac, Unlock Mac and Disconnect. Above the keyboard, tap ⌘ to see Copy,
+Paste, Undo and other shortcuts by name. On iPhone, clicks and drags tap back lightly, like a MacBook trackpad, and a few
+moments have their own feel, such as a Mac's screen arriving or a Mac waking. Turn these off on the haptics line in Dumb
+Terminal's Settings.</p>
 <p>Mac gestures work too: swipe three fingers left or right to switch Spaces, up for Mission Control and down for
 App Exposé, and four fingers left or right to switch apps. On iPad, turn off iPad's own four-finger gestures
 (Settings, Multitasking &amp; Gestures) to use four fingers in Dumb Terminal.</p>
 
 <p>Tap ⚡ in the row above the keyboard for one-tap Mac actions: Spotlight, Mission Control, App Exposé, Undo
-and Redo, plus shortcuts of your own. Add, delete and reorder yours in Dumb Terminal's Settings, Sessions, Shortcut Keys; they are
+and Redo, plus shortcuts of your own. Add, delete and reorder yours in Dumb Terminal's Settings, on the shortcut keys line; they are
 kept on your device.</p>
 <p>On iPad, Apple Pencil points exactly where it touches: hover to move the Mac's pointer, tap to click, and draw
 to drag. A mouse, trackpad or keyboard connected to the iPad works as it would on a Mac, apart from shortcuts iPadOS
@@ -135,8 +137,14 @@ back to your device.</p>
 <p>Sitting at the Mac already? Choose Trackpad Only from the session menu to use your device as a trackpad and
 keyboard without the picture. It saves battery, and the Mac sends a lighter picture until you show it again.</p>
 
+<h2>Widgets and Control Center</h2>
+<p>Add Dumb Terminal's widgets to your Home Screen or Lock Screen, or its Last Mac control to Control Center. Your Macs
+shows several Macs, Last Mac and Prompt feature the one you used last, and the control shows when you last used it.
+To choose which Macs a widget shows, press and hold it, then Edit Widget. A tap wakes the Mac if it's asleep and opens
+it.</p>
+
 <h2>Lock and unlock your Mac</h2>
-<p>Tap the handle at the bottom of a session, then the lock. Lock Mac locks the screen. Unlock Mac types the password
+<p>Tap the handle at the bottom of a session, then Lock Mac or Unlock Mac. Lock Mac locks the screen. Unlock Mac types the password
 you connected with into the lock screen; it's there when you connected with your Mac's user name and password. With
 the keyboard up, Password above it does the same. Your Mac password stays in your iPhone or iPad's Keychain,
 encrypted by iOS, and is never synced or sent anywhere.</p>
@@ -146,8 +154,8 @@ after you put your phone down.</p>
 <h2>Beta feedback</h2>
 <p>Testing a beta from TestFlight? Thank you. Send feedback from the TestFlight app: open Dumb Terminal there and tap Send
 Beta Feedback, or take a screenshot while using Dumb Terminal and tap Share Beta Feedback. You can also email
-<a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>. The build number is in Dumb Terminal's Settings, at the
-bottom.</p>
+<a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>. The build number is on the first line of Dumb Terminal's
+Settings.</p>
 
 </main>
 
@@ -160,14 +168,12 @@ bottom.</p>
       <p><span aria-hidden="true">% </span><button class="cursor" type="button" data-shell aria-label="Open the command line"></button></p>
     </div>
     <nav class="foot-links" aria-label="More">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/">./support</a>
       <a href="/privacy/">./privacy</a>
       <a href="/terms/">./terms</a>
       <a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>
     </nav>
-    <p class="secret">the app has secrets too. we won’t say where.</p>
-    <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+    <p class="legal">© 2026 Dumb Terminal. Apple, Mac, macOS, iPhone, iPad, Apple Pencil, iCloud, Face ID, AirPlay, App Store and TestFlight are trademarks of Apple Inc., registered in the U.S. and other countries. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
     <p class="tail" data-tail aria-hidden="true">guest@dumbterminal ~ % <span class="cursor"></span></p>
   </div>
 </footer>

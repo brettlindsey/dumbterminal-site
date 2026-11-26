@@ -2,7 +2,7 @@
 (function () {
   try {
     var theme = localStorage.getItem('dt-theme');
-    if (theme && /^(basic|bios|neon|lcd)$/.test(theme)) document.documentElement.setAttribute('data-theme', theme);
-  } catch (e) { /* storage blocked: the Terminal theme it is */ }
+    if (theme && /^(red|yellow|blue|rainbow)$/.test(theme)) document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) { /* storage blocked: green it is */ }
   document.documentElement.classList.add('js');
 })();

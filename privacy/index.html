@@ -34,7 +34,6 @@
 <header class="top wrap">
   <a class="brand" href="/"><img src="/img/icon.png" alt="" width="30" height="30"><span>~/dumbterminal</span></a>
   <nav class="nav-wide" aria-label="Site">
-    <a href="/releases/">./whats-new</a>
     <a href="/support/">./support</a>
     <a href="/privacy/" aria-current="page">./privacy</a>
     <a href="/terms/">./terms</a>
@@ -42,7 +41,6 @@
   <details class="menu">
     <summary>menu</summary>
     <nav class="nav" aria-label="Site menu">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/">./support</a>
       <a href="/privacy/" aria-current="page">./privacy</a>
       <a href="/terms/">./terms</a>
@@ -53,22 +51,23 @@
 <main id="main" class="wrap doc">
 <p class="cmd">$ cat privacy.md</p>
 <h1>Privacy Policy</h1>
-<p class="lead">Effective November 23, 2026</p>
+<p class="lead">Effective November 25, 2026</p>
 <p>Dumb Terminal collects nothing about you. There is no account, no analytics, no advertising, no tracking, and no developer servers to send anything to.</p>
 <h2>On your device</h2>
 <ul>
-<li>Your settings, shortcut keys and wake addresses, the themes you've unlocked, how many sessions you've had and your best scores in the hidden games.</li>
+<li>Your settings, shortcut keys and wake addresses, how many sessions you've had and how many of them ran two hours or more, which of the four colours you've ended a session in and whether you've found the hidden themes, your best scores in the hidden games, which hidden moments you've found, and whether this phone has seen one that plays only once.</li>
 <li>Saved passwords, in the iOS Keychain on this device only: never synced or backed up to other devices, and behind Face ID, Touch ID or your passcode if you like. If you let iOS save a sign-in to the Passwords app, Apple stores and syncs it, not Dumb Terminal.</li>
-<li>Each Mac's name, address, wake address and last-known state, shared only with Dumb Terminal's own widgets.</li>
+<li>Each Mac's name, address, wake address, last-known state and when you last used it, shared only with Dumb Terminal's own widgets and control. Which Macs each widget shows is kept by iOS with the widget.</li>
+<li>Nothing about where your pointer goes. A hidden picture at the end of a long session is drawn from memory and kept only if you share it.</li>
 </ul>
 <h2>In your iCloud</h2>
 <p>Your saved Macs (each one's name, network name, address and port, Tailscale address, kind of Mac, when you added it and last used it, and whether it's pinned) sync between your own devices through your private iCloud database. The developer can't see them, and passwords never sync. To stop, turn off iCloud for Dumb Terminal in iOS Settings, then your name, then iCloud.</p>
 <h2>What Dumb Terminal connects to</h2>
 <ul>
 <li><strong>Your Mac, directly.</strong> Screen, keyboard and mouse data go between your device and your Mac, on your Wi-Fi or over your own Tailscale network (a separate service with its own privacy policy). Nothing passes through a server run by the developer.</li>
-<li><strong>Your local network</strong>, only to find Macs that offer Screen Sharing, connect to them and wake them.</li>
+<li><strong>Your local network</strong>, to find Macs that offer Screen Sharing, connect to them and wake them. While the list of Macs is open, Dumb Terminal also lets other phones with Dumb Terminal on the same network see a random name, made fresh each time, and the name of your colour, for a hidden hello. Nothing else is shared, and nothing goes beyond your network.</li>
 <li><strong>The microphone</strong>, only while you dictate. Speech becomes text on your device; the audio never leaves it and nothing is kept. Only the text you send is typed on your Mac.</li>
-<li><strong>Motion</strong>, only while you play a hidden game you steer by tilting. Nothing is kept.</li>
+<li><strong>Motion, the proximity sensor and the battery level</strong>, only for hidden things: a game you steer by tilting, and a few moments on the list of Macs that notice how you hold the phone or when the battery is nearly out. Nothing is kept.</li>
 <li><strong>The clipboard</strong>, only if you turn on Share Clipboard (off by default). Text you copy here is sent to your Mac, including passwords copied from a password manager, so leave it off if you copy passwords on this device. Text from your Mac stays on this device.</li>
 <li><strong>The App Store</strong>, to check whether you have Root Access or its free trial. Apple handles payment; the developer never sees your payment details.</li>
 </ul>
@@ -87,14 +86,12 @@
       <p><span aria-hidden="true">% </span><button class="cursor" type="button" data-shell aria-label="Open the command line"></button></p>
     </div>
     <nav class="foot-links" aria-label="More">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/">./support</a>
       <a href="/privacy/">./privacy</a>
       <a href="/terms/">./terms</a>
       <a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>
     </nav>
-    <p class="secret">the app has secrets too. we won’t say where.</p>
-    <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+    <p class="legal">© 2026 Dumb Terminal. Apple, Mac, macOS, iPhone, iPad, Apple Pencil, iCloud, Face ID, AirPlay, App Store and TestFlight are trademarks of Apple Inc., registered in the U.S. and other countries. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
     <p class="tail" data-tail aria-hidden="true">guest@dumbterminal ~ % <span class="cursor"></span></p>
   </div>
 </footer>

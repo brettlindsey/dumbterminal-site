@@ -38,7 +38,6 @@
 <header class="top wrap">
   <a class="brand" href="/"><img src="/img/icon.png" alt="" width="30" height="30"><span>~/dumbterminal</span></a>
   <nav class="nav-wide" aria-label="Site">
-    <a href="/releases/">./whats-new</a>
     <a href="/support/">./support</a>
     <a href="/privacy/">./privacy</a>
     <a href="/terms/">./terms</a>
@@ -46,7 +45,6 @@
   <details class="menu">
     <summary>menu</summary>
     <nav class="nav" aria-label="Site menu">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/">./support</a>
       <a href="/privacy/">./privacy</a>
       <a href="/terms/">./terms</a>
@@ -99,7 +97,7 @@
       <li class="step">
         <p class="log"><span class="n">[2/3]</span> open dumb terminal <span class="bar" data-bar>[##########] ok</span></p>
         <h3>Open Dumb Terminal</h3>
-        <p>Macs on your Wi-Fi show up by themselves. Add the free Tailscale app and Root Access, and they follow you anywhere.</p>
+        <p>Macs on your Wi-Fi show up by themselves. Add Tailscale (free for personal use) and Root Access, and they follow you anywhere.</p>
       </li>
       <li class="step">
         <p class="log"><span class="n">[3/3]</span> tap your mac <span class="bar" data-bar>[##########] ok</span></p>
@@ -114,20 +112,20 @@
         <p class="dim">Every Mac on your Wi-Fi shows up by name. Tap one and you’re in.</p>
       </div>
       <figure class="phone" data-decrypt>
-        <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Dumb Terminal’s home screen: “Good evening”, three Macs nearby with the Studio Mac ready to open, and two more Macs listed under Away.">
+        <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Dumb Terminal’s home screen: “good evening”, three Macs nearby, a line to resume the Studio Mac, and two more Macs listed under ~/macs/away.">
       </figure>
     </div>
   </section>
 
   <section class="block wrap" id="tune">
     <h2>./tune</h2>
-    <p class="lede">Five channels, all of them Dumb Terminal. Turn the knob.</p>
+    <p class="lede">Four channels, all of them Dumb Terminal. Turn the knob.</p>
     <div class="tv-row">
       <div class="tv" data-tv>
         <div class="tv-screen">
           <img src="/img/screens/home.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="Channel 3, home: your Macs, nearby and away, listed by name." data-tv-img>
           <canvas class="tv-static" width="72" height="156" aria-hidden="true"></canvas>
-          <div class="tv-card" aria-hidden="true"><span>SIGNAL FOUND</span><span class="tv-card-box">press start</span></div>
+          <div class="tv-card" aria-hidden="true"><span>SIGNAL FOUND</span><span class="tv-card-box">prism</span></div>
           <span class="tv-ch" aria-hidden="true" data-tv-ch>CH 03</span>
         </div>
         <button class="tv-knob" type="button" aria-label="Next channel" data-tv-next hidden></button>
@@ -136,9 +134,8 @@
       <ul class="channels" aria-label="Channels" hidden>
         <li><button type="button" data-ch="3" aria-pressed="true">CH 03 · home</button><span class="what">Your Macs, nearby and away, by name.</span></li>
         <li><button type="button" data-ch="4" aria-pressed="false">CH 04 · session</button><span class="what">Your Mac’s screen above a trackpad.</span></li>
-        <li><button type="button" data-ch="5" aria-pressed="false">CH 05 · status</button><span class="what">Every Mac at a glance: where it is, when you used it.</span></li>
-        <li><button type="button" data-ch="6" aria-pressed="false">CH 06 · config</button><span class="what">Settings, written like a config file.</span></li>
-        <li><button type="button" data-ch="7" aria-pressed="false">CH 07 · away</button><span class="what">Set it up once, then reach your Macs from anywhere.</span></li>
+        <li><button type="button" data-ch="5" aria-pressed="false">CH 05 · layouts</button><span class="what">One Big Mac, one of five ways to lay out home.</span></li>
+        <li><button type="button" data-ch="6" aria-pressed="false">CH 06 · away</button><span class="what">Set it up once, then reach your Macs from anywhere.</span></li>
       </ul>
       <p class="sr-only" aria-live="polite" data-tv-say></p>
     </div>
@@ -164,9 +161,8 @@
         <ul class="check">
           <li>Reach your Mac from any network over Tailscale</li>
           <li>Mac to device, never through our servers</li>
-          <li>Every theme, without hunting for them</li>
           <li>Yours for good, on every device with your Apple Account, and shared with your family</li>
-          <li>Needs the free Tailscale app on your Mac and device</li>
+          <li>Needs Tailscale on your Mac and device, free for personal use</li>
           <li>Price shown in the App Store before you buy</li>
         </ul>
       </div>
@@ -179,7 +175,7 @@
         <p class="dim">Away from home, Dumb Terminal walks you through Tailscale once. After that your Macs answer from anywhere.</p>
       </div>
       <figure class="phone" data-modem>
-        <img src="/img/screens/away.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="The Away setup screen: a three-step checklist for reaching your Macs away from home with the free Tailscale app.">
+        <img src="/img/screens/away.jpg" width="540" height="1174" loading="lazy" decoding="async" alt="The Away setup screen: a three-step checklist for reaching your Macs away from home with Tailscale.">
       </figure>
     </div>
   </section>
@@ -220,7 +216,7 @@
     <div class="features">
       <div class="feature">
         <h3>A real trackpad</h3>
-        <p>Tap to click, two-finger tap or press and hold to right-click, scroll, and hold and move to drag. Or just tap where you want.</p>
+        <p>Tap to click, tap with two fingers to right-click, slide two to scroll, and press and hold to drag, like a Mac trackpad. Or just tap where you want.</p>
       </div>
       <div class="feature">
         <h3>Mac keys and shortcuts</h3>
@@ -240,7 +236,7 @@
       </div>
       <div class="feature">
         <h3>Widgets</h3>
-        <p>Put your Macs on your Home Screen and Lock Screen. One tap opens a Mac, another wakes it.</p>
+        <p>Put your Macs on your Home Screen, Lock Screen and in Control Center, and choose which Macs each one shows. One tap wakes a Mac and opens it.</p>
       </div>
       <div class="feature">
         <h3>A laptop on a foldable</h3>
@@ -255,6 +251,7 @@
         <p>Connect a TV or monitor: your Mac fills it, and your device becomes the trackpad.</p>
       </div>
     </div>
+    <p class="eggs">A few things in the app are hidden. We won’t say where.</p>
   </section>
 
   <section class="block wrap" id="privacy">
@@ -274,14 +271,12 @@
       <p><span aria-hidden="true">% </span><button class="cursor" type="button" data-shell aria-label="Open the command line"></button></p>
     </div>
     <nav class="foot-links" aria-label="More">
-      <a href="/releases/">./whats-new</a>
       <a href="/support/">./support</a>
       <a href="/privacy/">./privacy</a>
       <a href="/terms/">./terms</a>
       <a href="/support/" data-mail="support">support [at] dumbterminal [dot] app</a>
     </nav>
-    <p class="secret">the app has secrets too. we won’t say where.</p>
-    <p class="legal">© 2026 Dumb Terminal. Mac, macOS, iPhone, iPad and Apple Pencil are trademarks of Apple Inc. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
+    <p class="legal">© 2026 Dumb Terminal. Apple, Mac, macOS, iPhone, iPad, Apple Pencil, iCloud, Face ID, AirPlay, App Store and TestFlight are trademarks of Apple Inc., registered in the U.S. and other countries. Tailscale is a trademark of Tailscale Inc. Dumb Terminal is not affiliated with or endorsed by them.</p>
     <p class="tail" data-tail aria-hidden="true">guest@dumbterminal ~ % <span class="cursor"></span></p>
   </div>
 </footer>

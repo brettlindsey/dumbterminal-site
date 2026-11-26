@@ -1,6 +1,6 @@
 // Dumb Terminal's site, part 6: the app's screenshots, kept cryptic. The home screen arrives scrambled and decrypts
 // when you point at it (or after a moment in view); the Away screen downloads over a pretend modem; and a little TV
-// shows five channels of the app, with a sixth that is only static. Without JavaScript, or with Reduce Motion on,
+// shows four channels of the app, with a fifth that is only static. Without JavaScript, or with Reduce Motion on,
 // every screenshot is simply shown.
 (function () {
   'use strict';
@@ -125,7 +125,7 @@
     }, { threshold: 0.4 }).observe(modem);
   }
 
-  // ---- S8 · The TV: five channels of the app, and channel 00, which is static. Wait on 00 and something shows. ----
+  // ---- S8 · The TV: four channels of the app, and channel 00, which is static. Wait on 00 and something shows. ----
   var tv = document.querySelector('[data-tv]');
   if (!tv) return;
   var img = tv.querySelector('[data-tv-img]');
@@ -138,11 +138,10 @@
   var channels = {
     3: ['home', 'Channel 3, home: your Macs, nearby and away, listed by name.'],
     4: ['session', 'Channel 4, session: a Mac’s desktop at the top of the screen, with a trackpad below it.'],
-    5: ['status', 'Channel 5, status: every Mac with where it is and when you last used it.'],
-    6: ['config', 'Channel 6, config: Dumb Terminal’s settings, written like a config file.'],
-    7: ['away', 'Channel 7, away: the checklist for reaching your Macs from anywhere.']
+    5: ['layouts', 'Channel 5, layouts: One Big Mac, one Mac at a time, with the next ones peeking in at the edges.'],
+    6: ['away', 'Channel 6, away: the checklist for reaching your Macs from anywhere.']
   };
-  var order = [3, 4, 5, 6, 7, 0];
+  var order = [3, 4, 5, 6, 0];
   var current = 3;
   var turns = 0;
   var foundTimer = null;
@@ -182,7 +181,7 @@
         foundTimer = setTimeout(function () {
           noiseOff();
           tv.classList.add('found');
-          if (say) say.textContent = 'Channel 0: signal found. It says: press start.';
+          if (say) say.textContent = 'Channel 0: signal found. It says: prism.';
         }, 6000);
         return;
       }
