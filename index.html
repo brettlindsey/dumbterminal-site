@@ -33,6 +33,7 @@
 <script src="/frames.js" defer></script>
 <script src="/screens.js" defer></script>
 <script src="/textphone.js" defer></script>
+<script src="/pointer.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -110,8 +111,8 @@
     <div class="hero-more">
       <p class="sub">Dumb Terminal uses the Screen Sharing already built into macOS. Turn it on once, tap your Mac, and use it with a trackpad, touch or a keyboard. Free on your own network, forever.</p>
       <p class="actions">
-        <!-- When the public beta opens: label this ./get-the-beta. At launch: point it at the App Store. -->
-        <a class="button" href="#beta">./get-early-access</a>
+        <!-- At launch: point this at the App Store. -->
+        <a class="button" href="#beta">./get-the-beta</a>
         <a class="button ghost" href="#setup">./setup</a>
       </p>
       <!-- At launch: remove "hidden" so the App Store badge shows, and uncomment the Smart App Banner in <head>. -->
@@ -218,13 +219,10 @@
   <section class="block wrap" id="beta">
     <div class="panel beta">
       <h2>./beta</h2>
-      <p>Try the newest Dumb Terminal before it reaches the App Store. Away Access is included during the beta. Install Apple’s TestFlight app, then open the invite on your iPhone or iPad.</p>
-      <p class="soon"><span class="warn">public beta opening soon.</span> Want in before that? Ask for a TestFlight invite.</p>
-      <!-- To open the public beta: turn the link on in TestFlight, remove "hidden" from ./join-the-beta, and remove
-           ./ask-for-an-invite and the "opening soon" line above. -->
+      <p>Try the newest Dumb Terminal before it reaches the App Store. Away Access is included during the beta. Open this page on your iPhone or iPad and tap below. Apple’s TestFlight app does the rest.</p>
+      <p class="soon">Seats are limited. If the beta is full, check back soon.</p>
       <p class="actions">
-        <a class="button" href="https://testflight.apple.com/join/SDDhRjzf" data-testflight hidden>./join-the-beta</a>
-        <a class="button" href="/support/" data-mail="support" data-subject="Dumb Terminal beta invite">./ask-for-an-invite</a>
+        <a class="button" href="https://testflight.apple.com/join/SDDhRjzf">./join-the-beta</a>
       </p>
     </div>
   </section>

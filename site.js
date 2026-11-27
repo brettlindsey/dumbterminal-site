@@ -136,7 +136,7 @@
 
   // ---- The support address is never in the HTML, so address harvesters reading the page find nothing to take.
   // It is put together here; without JavaScript the link reads "support [at] dumbterminal [dot] app". A link whose
-  // label is a button's words (./ask-for-an-invite) keeps them. ----
+  // label is a button's words keeps them. ----
   document.querySelectorAll('[data-mail]').forEach(function (a) {
     var address = a.getAttribute('data-mail') + String.fromCharCode(64) + ['dumbterminal', 'app'].join('.');
     var subject = a.getAttribute('data-subject');
