@@ -1,13 +1,16 @@
 // Dumb Terminal's site: what the mouse and taps do on the home page. Each visit picks one of six, never the same twice
 // in a row:
 //   mac     · the Mac's pointer: a fainter arrow follows yours a beat behind, parks beside the headline's blinking
-//             cursor after five idle seconds, and glides to each tap or click and clicks there (a small ring).
+//             cursor after five idle seconds, and glides to each tap or click and clicks there (a small ring). Once
+//             it shows, it stays until the page is reloaded.
 //   packets · a dim corner line shows the six bytes Screen Sharing would send the Mac for the pointer (RFB
-//             PointerEvent: type 5, buttons, x, y), lit while a button is down. Six taps: "# six bytes. ...".
-//   glow    · afterglow: the pointer leaves a short phosphor trail; a tap leaves a dot that dies away.
+//             PointerEvent: type 5, buttons, x, y), lit while a button is down. Six taps: "# six bytes. ...". It
+//             stays until the page is reloaded.
+//   glow    · afterglow: the pointer leaves a phosphor trail that dims but never goes, like burn-in on the tube's
+//             glass, until the page is reloaded; taps leave dots the same way.
 //   wave    · a tap sends a ring of characters out, @ O o . , that fades.
-//   xray    · while the pointer moves, a circle around it shows a dump of bytes "under" the page, with a few of the
-//             site's secrets in it. On touch, press and hold.
+//   xray    · a circle around the pointer shows a dump of bytes "under" the page, with a few of the site's secrets
+//             in it, and stays where the pointer rests (never over a link or button). On touch, press and hold.
 //   ping    · a tap types a reply that floats away: "64 bytes from mac: seq=3 time=3.1 ms", now and then "(it misses you)".
 // `?pointer=wave` picks one on purpose (scripts/site-check.mjs walks all six this way). With Reduce Motion only the two
 // that don't move are picked (packets, xray). Nothing here takes clicks: every layer has pointer-events off.
@@ -46,7 +49,7 @@
       document.body.appendChild(arrow);
       var pos = { x: window.innerWidth * 0.7, y: window.innerHeight * 0.4 };
       var target = { x: pos.x, y: pos.y };
-      var click = false, running = false, parked = null, lastInput = 0, hideTimer = null;
+      var click = false, running = false, parked = null, lastInput = 0;
       var place = function () {
         arrow.style.transform = 'translate(' + (pos.x - 2).toFixed(1) + 'px,' + (pos.y - 2).toFixed(1) + 'px)';
       };
@@ -83,7 +86,6 @@
           show(true);
           go();
         }, { passive: true });
-        document.documentElement.addEventListener('mouseleave', function () { if (!parked) show(false); });
         // Idle: park beside the headline's blinking cursor, if it is on screen.
         setInterval(function () {
           if (parked || !lastInput || Date.now() - lastInput < 5000 || document.hidden) return;
@@ -106,19 +108,16 @@
         unpark();
         show(true);
         go();
-        // A finger leaves nothing to follow, so the arrow fades once it has clicked.
-        clearTimeout(hideTimer);
-        if (e.pointerType !== 'mouse') hideTimer = setTimeout(function () { show(false); }, 1600);
       }, { passive: true });
       // Scrolling moves the page under a parked arrow; let it go back to following.
-      window.addEventListener('scroll', function () { if (parked) { unpark(); show(false); } }, { passive: true });
+      window.addEventListener('scroll', function () { unpark(); }, { passive: true });
       place();
     },
 
     packets: function () {
       var box = make('div', 'packets');
       document.body.appendChild(box);
-      var X = 0, Y = 0, down = 0, log = [], taps = 0, note = '', fade = null;
+      var X = 0, Y = 0, down = 0, log = [], taps = 0, note = '';
       var bytes = function (m) { return [5, m, X >> 8, X & 255, Y >> 8, Y & 255].map(hex).join(' '); };
       var line = function (text, cls) { var d = document.createElement('div'); d.className = cls; d.textContent = text; return d; };
       var draw = function () {
@@ -127,8 +126,6 @@
         if (note) box.appendChild(line(note, 'old'));
         box.appendChild(line(bytes(down), down ? 'now on' : 'now'));
         box.classList.add('on');
-        clearTimeout(fade);
-        fade = setTimeout(function () { box.classList.remove('on'); }, 6000);
       };
       // Where the pointer is, on a pretend 2560 × 1600 Mac screen.
       var at = function (e) {
@@ -162,17 +159,30 @@
     },
 
     glow: function () {
+      // Two layers: a bright trail that fades as before, and under it a dimmer copy that never fades (the burn-in),
+      // so everything the pointer has drawn this visit stays until the page is reloaded.
+      var burn = make('canvas', 'afterglow burn');
       var c = make('canvas', 'afterglow');
+      document.body.appendChild(burn);
       document.body.appendChild(c);
-      var g = c.getContext('2d');
-      if (!g) return;
+      var g = c.getContext('2d'), b = burn.getContext('2d');
+      if (!g || !b) return;
       var last = null, idle = 0, running = false, colour = ink();
       var size = function () {
         var dpr = window.devicePixelRatio || 1;
-        c.width = Math.round(window.innerWidth * dpr);
-        c.height = Math.round(window.innerHeight * dpr);
-        g.setTransform(dpr, 0, 0, dpr, 0, 0);
-        g.lineCap = 'round';
+        // Resizing a canvas clears it; carry the burn-in over.
+        var keep = null;
+        if (burn.width && burn.height) {
+          keep = document.createElement('canvas');
+          keep.width = burn.width; keep.height = burn.height;
+          keep.getContext('2d').drawImage(burn, 0, 0);
+        }
+        [c, burn].forEach(function (k) {
+          k.width = Math.round(window.innerWidth * dpr);
+          k.height = Math.round(window.innerHeight * dpr);
+        });
+        [g, b].forEach(function (x) { x.setTransform(dpr, 0, 0, dpr, 0, 0); x.lineCap = 'round'; });
+        if (keep) { b.setTransform(1, 0, 0, 1, 0, 0); b.drawImage(keep, 0, 0); b.setTransform(dpr, 0, 0, dpr, 0, 0); }
       };
       size();
       window.addEventListener('resize', size);
@@ -185,13 +195,18 @@
         requestAnimationFrame(loop);
       };
       var kick = function () { idle = 0; if (!running) { running = true; requestAnimationFrame(loop); } };
+      var line = function (x, from, to, blur) {
+        x.strokeStyle = colour; x.shadowColor = colour; x.shadowBlur = blur; x.lineWidth = 2;
+        x.beginPath(); x.moveTo(from.x, from.y); x.lineTo(to.x, to.y); x.stroke();
+      };
+      var dot = function (x, p, blur, times) {
+        x.fillStyle = colour; x.shadowColor = colour; x.shadowBlur = blur;
+        for (var i = 0; i < times; i++) { x.beginPath(); x.arc(p.x, p.y, 4, 0, 7); x.fill(); }
+      };
       window.addEventListener('pointermove', function (e) {
         var p = { x: e.clientX, y: e.clientY };
         if (e.pointerType !== 'mouse' && !e.pressure) { last = null; return; }
-        if (last) {
-          g.strokeStyle = colour; g.shadowColor = colour; g.shadowBlur = 8; g.lineWidth = 2;
-          g.beginPath(); g.moveTo(last.x, last.y); g.lineTo(p.x, p.y); g.stroke();
-        }
+        if (last) { line(g, last, p, 8); line(b, last, p, 4); }
         last = p;
         kick();
       }, { passive: true });
@@ -201,9 +216,10 @@
       window.addEventListener('pointerdown', function (e) {
         if (!ours(e)) return;
         colour = ink();
-        g.fillStyle = colour; g.shadowColor = colour; g.shadowBlur = 16;
-        for (var i = 0; i < 3; i++) { g.beginPath(); g.arc(e.clientX, e.clientY, 4, 0, 7); g.fill(); }
-        last = { x: e.clientX, y: e.clientY };
+        var p = { x: e.clientX, y: e.clientY };
+        dot(g, p, 16, 3);
+        dot(b, p, 6, 1);
+        last = p;
         kick();
       }, { passive: true });
     },
@@ -259,18 +275,13 @@
       };
       fill();
       window.addEventListener('resize', fill);
-      var off = null, hold = null;
+      var hold = null;
       var aim = function (e) {
         layer.style.setProperty('--x', e.clientX + 'px');
         layer.style.setProperty('--y', e.clientY + 'px');
       };
-      var reveal = function (ms) {
-        layer.classList.add('on');
-        clearTimeout(off);
-        if (ms) off = setTimeout(function () { layer.classList.remove('on'); }, ms);
-      };
-      // With a mouse it shows only while the pointer moves, and never over something you can click, so reading
-      // and clicking are untouched.
+      var reveal = function () { layer.classList.add('on'); };
+      // With a mouse it stays where the pointer rests, but never over something you can click.
       window.addEventListener('pointermove', function (e) {
         aim(e);
         if (e.pointerType !== 'mouse') return;
@@ -278,20 +289,16 @@
           layer.classList.remove('on');
           return;
         }
-        reveal(700);
+        reveal();
       }, { passive: true });
-      document.documentElement.addEventListener('mouseleave', function () { layer.classList.remove('on'); });
       window.addEventListener('pointerdown', function (e) {
         if (e.pointerType === 'mouse' || !ours(e)) return;
         aim(e);
         clearTimeout(hold);
-        hold = setTimeout(function () { reveal(0); }, 250);
+        hold = setTimeout(reveal, 250);
       }, { passive: true });
-      var end = function (e) {
-        if (e.pointerType === 'mouse') return;
-        clearTimeout(hold);
-        layer.classList.remove('on');
-      };
+      // A finger lifted leaves the circle where it was.
+      var end = function (e) { if (e.pointerType !== 'mouse') clearTimeout(hold); };
       window.addEventListener('pointerup', end, { passive: true });
       window.addEventListener('pointercancel', end, { passive: true });
     },

@@ -540,6 +540,7 @@ html[data-theme="rainbow"] h1, html[data-theme="rainbow"] h2 {
 .packets .now.on { color: var(--bright); text-shadow: 0 0 8px var(--glow); }
 body:has(.shell:not([hidden])) .packets { display: none; }
 .afterglow { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 84; pointer-events: none; }
+.afterglow.burn { opacity: 0.4; }
 .wave-ch { position: fixed; left: 0; top: 0; z-index: 85; pointer-events: none; font: 0.9rem/1 var(--mono); color: var(--text);
            text-shadow: 0 0 6px var(--glow); }
 .xray { position: fixed; inset: 0; z-index: 84; pointer-events: none; overflow: hidden; padding: 0.3rem 0.7rem;
